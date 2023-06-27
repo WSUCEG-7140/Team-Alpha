@@ -1,0 +1,21 @@
+User Story: As a Javascript Developer, Add enhancements to existing html and Json schema's and add more pre-defined schemas.
+
+Sprint-1: 
+
+assigned @jonna01, @KalakuntlaRohith, @saikumarpulluri, @Gunturuwsu size  Issue#3  As a Javascript Developer, replicate the changes in local machine to validate the changes and be ready to test.
+assigned @jonna01, @KalakuntlaRohith, @saikumarpulluri, @Gunturuwsu size  Issue#4  As a Javascript developer, Write test cases to test ongoing changes.
+assigned @jonna01 size 2 Issue#5  Write Documentation for changes to be done in the sprints.
+assigned @KalakuntlaRohith size 2 Issue#7  As a Javascript Developer, Make changes to string element to be empty rather than null.
+assigned @Gunturuwsu size 4 Issue#15  As a Javascript Developer, Validation to fail if required field is empty.
+assigned @Gunturuwsu size 2 Issue#17  As a Javascript Developer, Display default values in an array when initial data is passed.
+assigned @KalakuntlaRohith size 2 Issue#19  As a Javascript Developer, Support Custom-Class Support.
+assigned @jonna01 size 3 Issue#8 As a Javascript Developer, Add new field to support password type.
+assigned @saikumarpulluri size 5 Issue#10 As a Javascript Developer, Add new field to support email and its validation.
+
+Sprint-2: 
+
+assigned Issue#13  As a Javascript Developer, Add new field to support Date format.
+assigned Issue#11  Add Sprint 1 Retrospective.
+assigned Issue#6   As a Javascript Developer, Subschema changes needs to refer Parent's ID. 
+assigned Issue#9   As a Javascript Developer, Add new field to support read-only type.
+assigned Issue#12  As a Javascript Developer, Disable all input restricted with read-only fields.
