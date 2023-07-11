@@ -418,6 +418,20 @@ if (typeof brutusin === "undefined") {
                     input.selectedIndex = 2;
                 }
             }
+
+            input.getValidationError = function () {
+                try {
+                    var value = getValue(s, input);
+                    if (value === null) {
+                        if (s.required) {
+                            return BrutusinForms.messages["required"];
+                        }
+                    } 
+                } catch (error) {
+                    return BrutusinForms.messages["invalidValue"];
+                }
+            };
+			
             input.onchange = function () {
                 if (parentObject) {
                     parentObject[propertyProvider.getValue()] = getValue(s, input);
@@ -1339,6 +1353,14 @@ if (typeof brutusin === "undefined") {
                     } else {
                         value = null;
                     }
+                } else if (schema.format === "radio") {
+                    value = null;
+                    for (var i = 0; i < input.childElementCount; i++) {
+                        if (input.childNodes[i].tagName === "INPUT" && input.childNodes[i].checked) {
+                            value = input.childNodes[i].value;
+                            break;
+                        }
+                    }					
                 }
             } else if (schema.type === "any") {
                 if (value) {
