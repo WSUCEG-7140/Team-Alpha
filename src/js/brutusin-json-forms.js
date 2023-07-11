@@ -76,7 +76,8 @@ if (typeof brutusin === "undefined") {
         "exclusiveMaximum": "Value must be **lower than** `{0}`",
         "minProperties": "At least `{0}` properties are required",
         "maxProperties": "At most `{0}` properties are allowed",
-        "email": "The email must at least consists an asterisk (@), following by a domain name with a dot (.)",        
+        "email": "The email must at least consists an asterisk (@), following by a domain name with a dot (.)",   
+		"url": "The URL provided is not a valid URL.",		
         "uniqueItems": "Array items must be unique",
         "addItem": "Add item",
         "true": "True",
@@ -231,6 +232,8 @@ if (typeof brutusin === "undefined") {
                     input.type = "email";
                 } else if (s.format === "password") {
                     input.type = "password";
+                } else if (s.format === "url") {
+                    input.type = "url";					
                 } else if (s.format === "text") {
                     input = document.createElement("textarea");
                 } else {
@@ -292,7 +295,13 @@ if (typeof brutusin === "undefined") {
                             if (!value.match(/[^@\s]+@[^@\s]+\.[^@\s]+/)) {
                                 return BrutusinForms.messages["email"];
                             }
-                        }                        
+                        } 
+
+                        if (!s.pattern && s.format === "url") {
+                            if (!value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)) {
+                                return BrutusinForms.messages["url"];
+                            }
+                        }						
                     }
                     if (value !== null && !isNaN(value)) {
                         if (s.multipleOf && value % s.multipleOf !== 0) {
