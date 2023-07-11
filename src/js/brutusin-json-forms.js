@@ -76,6 +76,7 @@ if (typeof brutusin === "undefined") {
         "exclusiveMaximum": "Value must be **lower than** `{0}`",
         "minProperties": "At least `{0}` properties are required",
         "maxProperties": "At most `{0}` properties are allowed",
+        "email": "The email must at least consists an asterisk (@), following by a domain name with a dot (.)",        
         "uniqueItems": "Array items must be unique",
         "addItem": "Add item",
         "true": "True",
@@ -285,6 +286,13 @@ if (typeof brutusin === "undefined") {
                                 return BrutusinForms.messages["maxLength"].format(s.maxLength);
                             }
                         }
+                        //Add a default regex pattern matching for email validation, or else user could use
+                        //the `pattern` field for their own custom regex pattern
+                        if (!s.pattern && s.format === "email") {
+                            if (!value.match(/[^@\s]+@[^@\s]+\.[^@\s]+/)) {
+                                return BrutusinForms.messages["email"];
+                            }
+                        }                        
                     }
                     if (value !== null && !isNaN(value)) {
                         if (s.multipleOf && value % s.multipleOf !== 0) {
