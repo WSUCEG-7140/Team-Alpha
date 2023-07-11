@@ -1221,7 +1221,7 @@ if (typeof brutusin === "undefined") {
                     if (schema.type !== "any" && schema.type !== "object" && schema.type !== "array") {
                         titleLabel.htmlFor = getInputId();
                     }
-                    var titleNode = document.createTextNode(title + ":");
+                    var titleNode = document.createTextNode(title);
                     appendChild(titleLabel, titleNode, schema);
                     if (schema.description) {
                         titleLabel.title = schema.description;
