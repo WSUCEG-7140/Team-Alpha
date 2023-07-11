@@ -390,6 +390,9 @@ if (typeof brutusin === "undefined") {
             };
             input.schema = schemaId;
             input.id = getInputId();
+            if (s.class) {
+                input.className = s.class;
+            }
             inputCounter++;
             if (s.description) {
                 input.title = s.description;
