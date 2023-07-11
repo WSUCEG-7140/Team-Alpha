@@ -1,0 +1,30 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs: 
+  test:
+    name: Testing JSON-Schema Changes
+    runs-on: windows-latest
+    steps:
+      - name: Github Checkout
+        uses: actions/checkout@v3
+      
+      - name: Installing Python Version 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          
+      - name: Installing Chrome Browser to test Validations.
+        uses: browser-actions/setup-chrome@v1
+      
+      - name: Installing Chromedriver to run webdrivers in Selenium.
+        uses: nanasess/setup-chromedriver@v2
+      
+      - name: Installing required Python dependencies.
+        run: pip install pytest selenium matplotlib
+      
+      - name: Running Python Tests with pytest
+        run: pytest -v tests/final_tests.py
