@@ -20,7 +20,7 @@ def fetch_string(text, search):
 #Validating String on Success testing both functionalities - getdata and validate.
 def string_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
-    chrome_driver.get('D:/a/Test_Cases/Test_Cases/index.html#4')
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html#4')
     chrome_driver.maximize_window()
     link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div[2]/button")
     link1.click()
@@ -56,7 +56,7 @@ def string_validation_on_success(input1):
 #Validating String on Failure testing both functionalities - getdata and validate.
 def string_validation_on_failure(input1):
     chrome_driver = webdriver.Chrome()
-    chrome_driver.get('D:/a/Test_Cases/Test_Cases/index.html#4')
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html#4')
     chrome_driver.maximize_window()
     link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div[2]/button")
     link1.click()
