@@ -1260,6 +1260,10 @@ if (typeof brutusin === "undefined") {
             renderInfoMap[schemaId].value = value;
             clear(titleContainer);
             clear(container);
+            if (s === undefined) {
+                data = new Object();
+                return;
+            }
             //console.log(id,s,value);
             var r = renderers[s.type];
             if (r && !s.dependsOn) {
