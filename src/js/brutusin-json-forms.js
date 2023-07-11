@@ -922,7 +922,8 @@ if (typeof brutusin === "undefined") {
                         if (ss !== null) {
                             if (ss.default == "" && value === null) {
                                 value = "";
-                            }                      
+                            }
+                        }
                         if (value !== null) {
                             clone[prop] = value;
                             nonEmpty = true;
