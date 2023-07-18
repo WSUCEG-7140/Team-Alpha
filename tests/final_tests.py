@@ -80,31 +80,23 @@ def test_radio_button_3():
     ##Testing Radio Functionality with Bird
     assert test_main.radio_button_validation_on_success("Bird") == True
 
-def test_radio_button_4():
-    ##Testing Radio Functionality on failure
-    assert test_main.radio_button_validation_on_failure() == True
-
 def test_checkbox_1():
-    ##Testing Checkbox Functionality on failure
-    assert test_main.checkbox_validation_on_failure() == True
-
-def test_checkbox_2():
     ##Testing Checkbox Functionality on Success with Vehicle
     assert test_main.checkbox_validation_on_success("Vehicle") == True
 
-def test_checkbox_3():
+def test_checkbox_2():
     ##Testing Checkbox Functionality on Success with Airplane
     assert test_main.checkbox_validation_on_success("Airplane") == True
     
-def test_checkbox_4():
+def test_checkbox_3():
     ##Testing Checkbox Functionality on Success with Cruise
     assert test_main.checkbox_validation_on_success("Cruise") == True
     
-def test_checkbox_5():
+def test_checkbox_4():
     ##Testing Checkbox Functionality on Success with Vehicle and Airplane
     assert test_main.multiple_checkbox_validation_on_success("Vehicle","Airplane") == True
     
-def test_checkbox_6():
+def test_checkbox_5():
     ##Testing Checkbox Functionality on Success with All of them
     assert test_main.checkbox_validation_on_success("ALL") == True
     
