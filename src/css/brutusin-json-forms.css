@@ -115,7 +115,11 @@ form.brutusin-form .error {
 form.brutusin-form .error-message {
     color: red;
 }
-
+.brutusin-form .form-control-range {
+    display: inline-block;
+    width: 95% !important;
+    margin-right: 15px;
+}
 .brutusin-card {
     position: relative;
     display: -webkit-box;
