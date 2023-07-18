@@ -228,12 +228,25 @@ if (typeof brutusin === "undefined") {
                     input.type = "date";
                 } else if (s.format === "time") {
                     input.type = "time";
+                } else if (s.format === "tel") {
+                    input.type = "tel";			
                 } else if (s.format === "email") {
                     input.type = "email";
                 } else if (s.format === "password") {
                     input.type = "password";
                 } else if (s.format === "url") {
-                    input.type = "url";					
+                    input.type = "url";	
+                } else if (s.format === "range") {
+                    input.type = "range";
+                    if (s.minimum) {
+                        input.min = s.minimum;
+                    }
+                    if (s.maximum) {
+                        input.max = s.maximum;
+                    }
+                    if (s.step) {
+                        input.step = s.step;
+                    }			
                 } else if (s.format === "text") {
                     input = document.createElement("textarea");
                 } else {
