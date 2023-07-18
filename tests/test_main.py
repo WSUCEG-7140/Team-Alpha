@@ -316,3 +316,343 @@ def time_validation_on_success(input1):
     sleep(1)
     chrome_driver.quit()
     return True
+
+#Validating Radio Button on Success.
+def radio_button_validation_on_success(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    Variable =  "//*[@id='Search']"
+    Variable = Variable.replace("Search",input1)
+    link2 = chrome_driver.find_element(By.XPATH, Variable)
+    link2.click()
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']/input[1]")
+    link3.click()
+    sleep(1)
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link4.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "radio1"
+    validated_string = fetch_string(alert.text,required_string)
+    assert input1 == validated_string
+    print ("Radio data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link5.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating Radio Button on Failure.
+def radio_button_validation_on_failure():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']/input[1]")
+    link2.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']").get_attribute("data-original-title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+
+#Validating Checkbox on Success.
+def checkbox_validation_on_success(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']")
+    link2.click()
+    if input1 == "ALL":
+        chrome_driver.find_element(By.NAME, "Vehicle").click()
+        chrome_driver.find_element(By.NAME, "Airplane").click()
+        chrome_driver.find_element(By.NAME, "Cruise").click()
+    else:
+        link3 = chrome_driver.find_element(By.NAME, input1)
+        link3.click()
+    sleep(1)
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link4.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "checkbox"
+    validated_string = fetch_string(alert.text,required_string)
+    if input1 == "ALL":
+        assert "Vehicle" == validated_string[0]
+        assert "Airplane" == validated_string[1]
+        assert "Cruise" == validated_string[2]
+    else:
+        assert input1 == validated_string[0]
+    print ("Checkbox data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link5.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating Checkbox on Failure.
+def checkbox_validation_on_failure():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']")
+    link2.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']/input[1]").get_attribute("data-original-title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating Multiple Checkbox on Success.
+def multiple_checkbox_validation_on_success(input1,input2):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']")
+    link2.click()
+    link3 = chrome_driver.find_element(By.NAME, input1)
+    link3.click()
+    link4 = chrome_driver.find_element(By.NAME, input2)
+    link4.click()
+    sleep(1)
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link5.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "checkbox"
+    validated_string = fetch_string(alert.text,required_string)
+    assert input1 == validated_string[0]
+    assert input2 == validated_string[1]
+    print ("Checkbox data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link6 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link6.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+
+#Validating Range Button on Success.
+def range_validation_on_success(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Range input type")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link3.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "range"
+    validated_string = fetch_string(alert.text,required_string)
+    assert input1 == validated_string
+    print ("Range data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link5.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating Phone Number Button on Success.
+def phone_number_validation_on_success(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Phone number input type")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    element = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']")
+    element.send_keys(input1)  
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link3.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "telephone_number"
+    validated_string = fetch_string(alert.text,required_string)
+    assert input1 == validated_string
+    print ("Telephone Number data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link5.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating Phone Number Button on Failure.
+def phone_number_validation_on_failure(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Phone number input type")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    element = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']")
+    element.send_keys(input1)  
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("data-original-title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating URL Type on Success.
+def url_validation_on_success(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("URL input type example")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    element = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']")
+    element.send_keys(input1)  
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[1]")
+    link3.click()
+    sleep(1)
+
+    alert = Alert(chrome_driver)
+    required_string = "url"
+    validated_string = fetch_string(alert.text,required_string)
+    assert input1 == validated_string
+    print ("URL data matched.")
+    sleep(1)
+        
+    #Phase - 2: Testing Validate Functionality on Success.
+    alert.accept()
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link5.click()
+    sleep(1)
+    alert = Alert(chrome_driver)
+    required_string = "Validation succeeded"
+    assert required_string == alert.text
+    print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating URL Type on Failure.
+def url_validation_on_failure(input1):
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("URL input type example")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    element = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']")
+    element.send_keys(input1)  
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("data-original-title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
