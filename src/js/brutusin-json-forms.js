@@ -377,14 +377,17 @@ if (typeof brutusin === "undefined") {
             var input;
             if (s.format === "radio") {
                 input = document.createElement("div");
+		input.className = "form-check form-check-inline";
                 for (var i = 0; i < s.enum.length; i++) {
                     var radioInput = document.createElement("input");
                     radioInput.type = "radio";
                     radioInput.name = s.$id.substring(2);
                     radioInput.value = s.enum[i];
                     radioInput.id = s.enum[i];
+		    radioInput.className = "form-check-input";
                     var label = document.createElement("label");
                     label.htmlFor = s.enum[i];
+		    label.className = "form-check-label";
                     var labelText = document.createTextNode(s.enum[i]);
                     appendChild(label, labelText);
                     if (value && s.enum[i] === value) {
@@ -399,18 +402,25 @@ if (typeof brutusin === "undefined") {
             }
             else if (s.format === "checkbox") {
                 input = document.createElement("div");
+		input.className = "form-check form-check-inline";
                 for (var i = 0; i < s.enum.length; i++) {
                     checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     checkbox.name = s.enum[i];
                     checkbox.value = s.enum[i];
+		    checkbox.className = "form-check-input";
 
                     var label = document.createElement("label");
                     label.htmlFor = s.enum[i];
+		    label.className = "form-check-label";
                     var labelText = document.createTextNode(s.enum[i]);
-                    appendChild(label, labelText);
-                    if (value && s.enum[i] === value) {
-                        checkbox.checked = true;
+                    appendChild(label, labelText);  
+                    if (value) {
+                        for (var j = 0; j < value.length; j++) {
+                            if (s.enum[i] === value[j]) {
+                                checkbox.checked = true;
+                            }
+                        }
                     }
                     if (s.readOnly) {
                         checkbox.disabled = true;
@@ -932,6 +942,9 @@ if (typeof brutusin === "undefined") {
                     if (object.length === 0) {
                         return null;
                     }
+                    if (s.format === "checkbox") {
+                        return object;
+                    }                    
                     var clone = new Array();
                     for (var i = 0; i < object.length; i++) {
                         clone[i] = removeEmptiesAndNulls(object[i], s.items);
@@ -1394,6 +1407,19 @@ if (typeof brutusin === "undefined") {
                     if (!value) {
                         value = false;
                     }
+                } else if (schema.format === "checkbox") {
+                    var checkboxValue = [];
+                    for (var i = 0; i < input.childElementCount; i++) {
+                        if (input.childNodes[i].tagName === "INPUT" && input.childNodes[i].checked) {
+                            checkboxValue.push(input.childNodes[i].value);
+                        }
+                    }
+                    if (checkboxValue.length !== 0) {
+                        value = checkboxValue;
+                    }
+                    else {
+                        value = null;
+                    }                    
                 } else if (input.tagName.toLowerCase() === "select") {
                     if (input.value === "true") {
                         value = true;

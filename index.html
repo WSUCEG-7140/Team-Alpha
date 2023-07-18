@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta name=viewport content='width=560'>
-        <link rel="stylesheet" href='lib/bootstrap/css/bootstrap.min.css'/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <link rel="stylesheet" href="lib/codemirror/codemirror.css">
-        <link rel="stylesheet" href="lib/bootstrap-select/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="lib/octicons/octicons.css">
         <link rel="stylesheet" href='src/css/brutusin-json-forms.css'/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -18,18 +18,18 @@
             }
         </style>
 
-        <script src='lib/jquery-1.11.3.min.js'></script>
-        <script src='lib/bootstrap/js/bootstrap.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
         <script src="lib/codemirror/codemirror.js"></script>
         <script src="lib/codemirror/codemirror-javascript.js"></script>
         <script src="lib/markdown.min.js"></script>
-        <script src="lib/bootstrap-select/js/bootstrap-select.min.js"></script>
-        <script src="lib/bootstrap-select/js/i18n/defaults-en_US.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.14/js/bootstrap-select.min.js" integrity="sha512-CJXg3iK9v7yyWvjk2npXkQjNQ4C1UES1rQaNB7d7ZgEVX2a8/2BmtDmtTclW4ial1wQ41cU34XPxOw+6xJBmTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.14/js/i18n/defaults-en_US.min.js" integrity="sha512-29UqgjaGxHyaEq1vJw4Q20iw6gBOMJDEUud/MNhXrJK6avCLukZ3eQf93AG7dywglnx21FoBvmHHBzP32O2YUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="src/js/brutusin-json-forms.js"></script>
         <script src="dist/js/brutusin-json-forms-bootstrap.min.js"></script>
         <script lang="javascript">
             var BrutusinForms = brutusin["json-forms"];
-            BrutusinForms.bootstrap.addFormatDecorator("inputstream", "file", "glyphicon-search", null, function (element) {
+            BrutusinForms.bootstrap.addFormatDecorator("inputstream", "file", "bi-search", null, function (element) {
                 alert("user callback on element " + element)
             });
             BrutusinForms.bootstrap.addFormatDecorator("color", "color");
@@ -89,7 +89,7 @@
                     null,
                     "`textarea` rendering for `string` schemas"],
                 ["Custom string formats",
-                    {"$schema": "http://json-schema.org/draft-03/schema#", "type": "object", "properties": {"file": {"type": "string", "format": "inputstream", "description": "Using a custom format decorator with **glyphicon** via `addFormatDecorator(...)` of the bootstrap extension script"}, "color": {"type": "string", "format": "color", "description": "Using a custom format decorator via `addFormatDecorator(...)` of the bootstrap extension script"}, "date": {"type": "string", "format": "date", "description": "Using a custom format decorator with glyphicon via `addFormatDecorator(...)` of the bootstrap extension script"}}},
+                    {"$schema": "http://json-schema.org/draft-03/schema#", "type": "object", "properties": {"file": {"type": "string", "format": "inputstream", "description": "Using a custom format decorator with **bootstrapIcon** via `addFormatDecorator(...)` of the bootstrap extension script"}, "color": {"type": "string", "format": "color", "description": "Using a custom format decorator via `addFormatDecorator(...)` of the bootstrap extension script"}, "date": {"type": "string", "format": "date", "description": "Using a custom format decorator with Bootstrap Icon via `addFormatDecorator(...)` of the bootstrap extension script"}}},
                     null,
                     null,
                     "Input types can be chosen for custom `string` schema formats via `BrutusinForms.bootstrap.addFormatDecorator(...)`. See current registered decorators at this page source code."],
@@ -127,7 +127,13 @@
                     {"$schema":"http://json-schema.org/draft-03/schema#","type":"object","properties":{"telephone_number":{"type":"string","title":"Phone number","format":"tel","pattern":"^[\\d \\-()+]*$","description":"This regex accepts digits, round brackets (), dashes (-) and plus sign (+). Eg: +60(11)-123-1234","required":true}}},
                     null,
                     null,
-                    "This is the `tel` input type example. It may looks no difference than a normal textbox but it alters the keyboard for mobile devices when inputting the value. Most phone devices would allows digit and certain symbol input only when it detects the input type `tel`."]
+                    "This is the `tel` input type example. It may looks no difference than a normal textbox but it alters the keyboard for mobile devices when inputting the value. Most phone devices would allows digit and certain symbol input only when it detects the input type `tel`."],
+                ["URL input type example",
+                    {"$schema":"http://json-schema.org/draft-03/schema#","type":"object","properties":{"url":{"type":"string","title":"URL","format":"url","description":"A URL field"}}},
+                    null,
+                    null,
+                    "URL input type field. Default regex pattern is `/(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/`. Custom pattern validation can be override with specifying the field `pattern` in the schema."
+                ]
             ];
 
             var selectedTab = "schema";
@@ -169,17 +175,17 @@
                 $("#jsonAlert").hide();
                 try {
                     message = "The was a syntax error in the schema JSON";
-                    tabId = "schema";
+                    tabId = "schema-tab";
                     eval("schema=" + inputString.schema);
                     if (inputString.data) {
                         message = "The was a syntax error in the initial data JSON";
-                        tabId = "data";
+                        tabId = "data-tab";
                         eval("data=" + inputString.data);
                     } else {
                         data = null;
                     }
                     if (inputString.resolver) {
-                        tabId = "resolver";
+                        tabId = "resolver-tab";
                         message = "The was a syntax error in the resolver code";
                         eval("resolver=" + inputString.resolver);
                         if ("function" !== typeof resolver) {
@@ -188,7 +194,7 @@
                     }
                 } catch (err) {
                     document.getElementById('error-message').innerHTML = message + (err ? ". " + err : "");
-                    $('[href=#' + tabId + ']').tab('show');
+                    $('button[id=' + tabId + ']').tab('show');
                     $("#jsonAlert").show();
                     return;
                 }
@@ -224,17 +230,17 @@
                 <p>Source code and documentation available at <a href="https://github.com/brutusin/json-forms"><span class="octicon octicon-logo-github"></span></a></p>
                 <p>Originally created for <a href="http://rpc.brutusin.org">Brutusin-RPC</a>. See who else is using it <a href="https://github.com/brutusin/json-forms/blob/master/WHO-IS-USING.md">here</a>.</p>
             </blockquote>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-primary">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseInput" aria-expanded="true" aria-controls="collapseInput">
-                                Input
-                            </a>
-                        </h4>
+            <div class="accordion" id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseInput" aria-expanded="true" aria-controls="collapseInput">
+                            Input
+                            </button>
+                        </h2>
                     </div>
-                    <div id="collapseInput" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
+                    <div id="collapseInput" class="collapse show" data-parent="#accordion">
+                        <div class="card-body">
                             <label for="examples">Predefined examples:</label>
                             <select class="form-control" id="examples" onchange="document.location.hash = this.selectedIndex;">
                                 <script>
@@ -245,43 +251,41 @@
                             </select>
                             <br>
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#schema" aria-controls="schema" role="tab" data-toggle="tab">Schema</a></li>
-                                <li role="presentation"><a href="#data" aria-controls="data" role="tab" data-toggle="tab">Initial data</a></li>
-                                <li role="presentation"><a href="#resolver" aria-controls="resolver" role="tab" data-toggle="tab">Schema resolver</a></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link active" id="schema-tab" type="button" data-toggle="tab" data-target="#schema" aria-controls="schema" role="tab" aria-selected="true">Schema</a></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" id="data-tab" type="button" data-toggle="tab" data-target="#data" aria-controls="data" role="tab" aria-selected="false">Initial data</a></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" id="resolver-tab" type="button" data-toggle="tab" data-target="#resolver" aria-controls="resolver" role="tab" aria-selected="false">Schema resolver</a></li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="schema"></div>
-                                <div role="tabpanel" class="tab-pane" id="data"></div>
-                                <div role="tabpanel" class="tab-pane" id="resolver"></div>
+                                <div role="tabpanel" class="tab-pane fade active show" id="schema" role="tabpanel" aria-labelledby="schema-tab"></div>
+                                <div role="tabpanel" class="tab-pane fade " id="data" role="tabpanel" aria-labelledby="data-tab"></div>
+                                <div role="tabpanel" class="tab-pane fade " id="resolver" role="tabpanel" aria-labelledby="resolver-tab"></div>
                             </div>
-                            <div class="alert alert-danger in" role="alert" id="jsonAlert" style="display:none">
-                                <a href="#" onclick='$("#jsonAlert").hide();' class="close" >&times;</a>
+                            <div class="alert alert-danger in" role="alert" id="jsonAlert" style="display:none; margin-top:1rem;">
+                                <span onclick='$("#jsonAlert").hide();' class="close" >&times;</span>
                                 <strong>Error!</strong> <span id="error-message"></span>
                             </div>
-
-                        </div>
-
-                        <div class="panel-footer">
-                            <button class="btn btn-primary" onclick="generateForm()">Create form</button> 
+                            <button class="btn btn-primary mt-3" onclick="generateForm()">Create form</button>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" id="formLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" id="formLink" type="button" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
                                 Generated form
-                            </a>
-                        </h4>
+                            </button>
+                        </h2>
                     </div>
-                    <div id="collapseForm" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="alert alert-info" role="alert"><strong id="example-title"></strong><div id="example-desc"></div></div>
-                        <div id='container' style="padding-left:12px;padding-right:12px;padding-bottom: 12px;"></div>
-                        <div class="panel-footer">
-                            <button class="btn btn-primary" onclick="alert(JSON.stringify(bf.getData(), null, 4))">getData()</button>&nbsp;<button class="btn btn-primary" onclick="if (bf.validate()) {
-                                        alert('Validation succeeded')
-                                    }">validate()</button>
+                    <div id="collapseForm" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="alert alert-secondary" role="alert"><strong id="example-title"></strong><div id="example-desc"></div></div>
+                            <div id='container' style="padding-left:12px;padding-right:12px;padding-bottom: 12px;"></div>
+                            <div class="panel-footer">
+                                <button class="btn btn-primary" onclick="alert(JSON.stringify(bf.getData(), null, 4))">getData()</button>&nbsp;<button class="btn btn-primary" onclick="if (bf.validate()) {
+                                            alert('Validation succeeded')
+                                        }">validate()</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,7 +300,7 @@
                 mode: "javascript",
                 lineNumbers: true
             });
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $('button[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 selectedTab = $(e.target).attr("aria-controls");
                 var pt = $(e.relatedTarget);
                 var prevTab;
@@ -313,7 +317,6 @@
                 codeMirrors[selectedTab].setValue(inputString[selectedTab]);
             }
             );
-
         </script>
     </body>
 </html> 
