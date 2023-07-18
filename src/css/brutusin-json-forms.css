@@ -122,6 +122,11 @@ form.brutusin-form .error {
 form.brutusin-form .error-message {
     color: red;
 }
+.brutusin-form .form-control-range {
+    display: inline-block;
+    width: 95% !important;
+    margin-right: 15px;
+}
 .brutusin-form .dropdown.bootstrap-select.form-control {
     width: 100% !important;
 }
@@ -194,6 +199,7 @@ blockquote {
     display: flex;
     padding: 6px 0;
 }
+
 .close {
     cursor: pointer;    
 }
