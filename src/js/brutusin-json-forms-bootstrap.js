@@ -36,17 +36,15 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
             if (tagName === "input" && (element.type !== "checkbox" && element.type !== "radio") || tagName === "textarea") {
                 element.className += " form-control";
             } else if (tagName === "select") {
-                element.className += " chosen-select form-control";
+                element.className += " form-control";
             } else if (tagName === "button") {
                 if (element.className === "remove") {
-                    element.className += " glyphicon glyphicon-remove";
+                    element.className += " bi bi-x";
                     while (element.firstChild) {
                         element.removeChild(element.firstChild);
                     }
                 }
-                element.className += " btn btn-primary  btn-xs";
-            } else if (tagName === "form") {
-                element.className += " form-inline";
+                element.className += " btn btn-warning btn-sm";
             }
         }
     });
@@ -66,7 +64,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                     divCard.innerHTML = "<div class='brutusin-card-header'><a id='expand-btn' class='btn btn-link' data-toggle='collapse' data-target='#brutusin-form-collapsible' aria-expanded='true' aria-controls='brutusin-form-collapsible'></a></div>";
 
                     var divCardBody = document.createElement("div");
-                    divCardBody.className = "collapse in";
+                    divCardBody.className = "collapse show";
                     divCardBody.id = "brutusin-form-collapsible";
                     divCardBody.setAttribute("aria-expanded", "true");
                     divCardBody.appendChild(parentElement);
@@ -88,12 +86,12 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
             var tagName = element.tagName.toLowerCase();
             if (tagName === "label" || tagName === "button") {
                 if (element.title) {
-                    var helpLink = document.createElement("a");
+                    var helpLink = document.createElement("i");
                     helpLink.setAttribute("style", "outline: 0; text-decoration: none; margin-left: 2px;");
                     helpLink.setAttribute("tabIndex", -1);
-                    helpLink.className = "glyphicon glyphicon-info-sign"
+                    helpLink.className = "bi bi-info-circle-fill"
                     helpLink.setAttribute("data-toggle", "popover");
-                    helpLink.setAttribute("data-trigger", "focus");
+                    helpLink.setAttribute("data-trigger", "hover");
                     if ("undefined" === typeof markdown) {
                         helpLink.setAttribute("data-content", element.title);
                     } else {
@@ -109,7 +107,12 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                         container: 'body',
                         html: !("undefined" === typeof markdown)
                     });
-                    element.parentNode.appendChild(helpLink);
+                    if (tagName === "label") {
+                        element.appendChild(helpLink);
+                    }
+                    else if (tagName === "button") {
+                        element.parentNode.appendChild(helpLink);
+                    }
                 }
             }
         }
@@ -154,7 +157,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
     });
     BrutusinForms.bootstrap = new Object();
 // helper button for string (with format) fields
-    BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, glyphicon, titleDecorator, cb) {
+    BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, bootstrapIcon, titleDecorator, cb) {
         BrutusinForms.addDecorator(function (element, schema) {
             if (element.tagName) {
                 var tagName = element.tagName.toLowerCase();
@@ -162,7 +165,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                     if (inputType) {
                         element.type = inputType;
                     }
-                    if (glyphicon) {
+                    if (bootstrapIcon) {
                         var parent = element.parentNode;
                         var table = document.createElement("table");
                         table.setAttribute("style", "border:none;margin:0");
@@ -178,7 +181,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                         tr.appendChild(td);
                         td.setAttribute("style", "padding:0");
                         var searchButton = document.createElement("button");
-                        searchButton.className = "btn btn-default glyphicon " + glyphicon;
+                        searchButton.className = "btn btn-default bi " + bootstrapIcon;
                         searchButton.onclick = function () {
                             cb(element);
                         };
@@ -205,7 +208,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
                 element.parentNode.style.position = "relative";
                 loading = document.createElement("span");
                 loading.id = loadingId;
-                loading.className = "glyphicon glyphicon-refresh glyphicon-refresh-animate";
+                loading.className = "spinner-border";
                 if (tagName === "select") {
                     loading.className += " loading-icon-select";
                 } else if (element.type === "checkbox") {
