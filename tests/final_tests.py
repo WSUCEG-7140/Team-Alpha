@@ -82,11 +82,11 @@ def test_radio_button_3():
     
 def test_radio_button_4():
     ##Testing Radio Functionality on failure
-    assert tests3.radio_button_validation_on_failure() == True
+    assert test_main.radio_button_validation_on_failure() == True
 
 def test_checkbox_1():
     ##Testing Checkbox Functionality on failure
-    assert tests3.checkbox_validation_on_failure() == True
+    assert test_main.checkbox_validation_on_failure() == True
 
 def test_checkbox_2():
     ##Testing Checkbox Functionality on Success with Vehicle
@@ -142,4 +142,4 @@ def test_url_3():
     
 def test_reset_button():
     ##Testing RESET Functionality.
-    assert tests3.reset_button_validation() == True
+    assert test_main.reset_button_validation() == True
