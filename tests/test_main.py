@@ -121,7 +121,7 @@ def string_validation_on_failure(input1):
        
     #Phase - 2: Testing Validate Functionality on Failure.
     required_string = "Validation error"
-    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("data-original-title")
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("title")
     assert required_string == link4
     print ("Retrieved Failure Alert with" + input1 + "as input")
     sleep(1)
@@ -214,7 +214,7 @@ def email_validation_on_failure(input1):
         
     #Phase - 2: Testing Validate Functionality on Failure.
     required_string = "Validation error"
-    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']").get_attribute("data-original-title")
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']").get_attribute("title")
     print (link4)
     assert required_string == link4
     print ("Retrieved Failure Alert with" + input1 + "as input")
@@ -357,6 +357,32 @@ def radio_button_validation_on_success(input1):
     sleep(1)
     chrome_driver.quit()
     return True
+   
+#Validating Radio Button on Failure.
+def radio_button_validation_on_failure():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']/input[1]")
+    link2.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
     
 #Validating Checkbox on Success.
 def checkbox_validation_on_success(input1):
@@ -403,6 +429,32 @@ def checkbox_validation_on_success(input1):
     required_string = "Validation succeeded"
     assert required_string == alert.text
     print ("Retrieved Success Alert with" + input1 + "as input")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+  
+#Validating Checkbox on Failure.
+def checkbox_validation_on_failure():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']")
+    link2.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']").get_attribute("title")
+    print (link4)
+    assert required_string == link4
+    print ("Retrieved Failure Alert")
     sleep(1)
     chrome_driver.quit()
     return True
@@ -536,7 +588,7 @@ def phone_number_validation_on_failure(input1):
     sleep(1)
 
     required_string = "Validation error"
-    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("data-original-title")
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("title")
     print (link4)
     assert required_string == link4
     print ("Retrieved Failure Alert")
@@ -597,9 +649,42 @@ def url_validation_on_failure(input1):
     sleep(1)
 
     required_string = "Validation error"
-    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("data-original-title")
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("title")
     print (link4)
     assert required_string == link4
+    print ("Retrieved Failure Alert")
+    sleep(1)
+    chrome_driver.quit()
+    return True
+    
+#Validating RESET Button
+def reset_button_validation():
+    chrome_driver = webdriver.Chrome()
+    chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
+    chrome_driver.maximize_window()
+    link = chrome_driver.find_element(By.XPATH, "//*[@id='examples']")
+    link.send_keys("Radio button and checkbox")
+    link1 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseInput']/div/button")
+    link1.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='Dog']")
+    link2.click()
+    sleep(1)
+    link2 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']/input[1]")
+    link2.click()
+    sleep(1)
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[3]")
+    link3.click()
+    sleep(1)    
+    link3 = chrome_driver.find_element(By.XPATH, "//*[@id='collapseForm']/div/div[3]/button[2]")
+    link3.click()
+    sleep(1)
+
+    required_string = "Validation error"
+    link4 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_0']").get_attribute("title")
+    assert required_string == link4
+    link5 = chrome_driver.find_element(By.XPATH, "//*[@id='BrutusinForms#0_1']").get_attribute("title")
+    assert required_string == link5
     print ("Retrieved Failure Alert")
     sleep(1)
     chrome_driver.quit()
