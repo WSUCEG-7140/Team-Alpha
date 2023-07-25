@@ -24,7 +24,10 @@ jobs:
         uses: nanasess/setup-chromedriver@v2
       
       - name: Installing required Python dependencies.
-        run: pip install pytest selenium matplotlib
+        run: pip install pytest selenium matplotlib coverage
       
       - name: Running Python Tests with pytest
-        run: pytest -v tests/final_tests.py
+        run: coverage run -m pytest -v tests/final_tests.py
+
+      - name: Running Code Coverage for Running Test Cases.
+        run: coverage report -m
