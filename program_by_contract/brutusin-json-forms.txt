@@ -1,0 +1,246 @@
+        /**
+		 * @pre 
+		 * container must be a valid non-null HTMLElement.
+		 * title must be a valid string or undefined.
+		 * schema must be a valid object.
+		 *
+		 * @post 
+		 * The title label must be rendered in the container element with the provided title and schema properties.
+		 *
+		 * @invariant
+		 * If the title is provided and the container is not null or undefined, the function must render the titleLabel containing the provided title text along with any additional properties defined in the schema.
+         */
+        function renderTitle(container, title, schema) {
+            if (container) {
+                if (title) {
+                    var titleLabel = document.createElement("label");
+                    if (schema.type !== "any" && schema.type !== "object" && schema.type !== "array") {
+                        titleLabel.htmlFor = getInputId();
+                    }
+                    var titleNode = document.createTextNode(title);
+                    appendChild(titleLabel, titleNode, schema);
+                    if (schema.description) {
+                        titleLabel.title = schema.description;
+                    }
+                    if (schema.required) {
+                        var sup = document.createElement("sup");
+                        appendChild(sup, document.createTextNode("*"), schema);
+                        appendChild(titleLabel, sup, schema);
+                        titleLabel.className = "required";
+                    }
+                    appendChild(container, titleLabel, schema);
+                }
+            }
+        }
+		
+
+--------------------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Renders the HTML form based on the provided JSON schema
+		 * 
+		 * @pre 
+		 * titleContainer must be a valid HTMLElement or undefined.
+		 * container must be a valid HTMLElement.
+		 * id must be a valid non-empty string.
+		 * parentObject must be a valid object.
+		 * propertyProvider must be a valid object or undefined.
+		 * value can be of any type.
+		 *
+		 * @post 
+		 * The form element must be rendered in the container element with the provided value.
+		 * If the schema is a reference, the resolution process must be handled appropriately.
+		 *
+		 * @invariant	
+		 * When calling the render function, it updates the renderInfoMap with the provided titleContainer, container, id, parentObject, propertyProvider, and value. Then, based on the schema, the function either renders a title using the renderTitle function or recursively calls itself to handle schema references ($ref) and dependency cases.
+         */
+        function render(titleContainer, container, id, parentObject, propertyProvider, value) {
+            //console.log(id);
+            var schemaId = getSchemaId(id);
+            var s = getSchema(schemaId);
+            renderInfoMap[schemaId] = new Object();
+            renderInfoMap[schemaId].titleContainer = titleContainer;
+            renderInfoMap[schemaId].container = container;
+            renderInfoMap[schemaId].parentObject = parentObject;
+            renderInfoMap[schemaId].propertyProvider = propertyProvider;
+            renderInfoMap[schemaId].value = value;
+            clear(titleContainer);
+            clear(container);
+            if (s === undefined) {
+                data = new Object();
+                return;
+            }
+            //console.log(id,s,value);
+            var r = renderers[s.type];
+            if (r && !s.dependsOn) {
+                if (s.title) {
+                    renderTitle(titleContainer, s.title, s);
+                } else if (propertyProvider) {
+                    renderTitle(titleContainer, propertyProvider.getValue(), s);
+                }
+                if (!value) {
+                    if (typeof initialValue !== "undefined" && initialValue !== null) {
+                        value = getInitialValue(id);
+                        if (value === null && typeof s.default !== "undefined") {
+                            value = s.default;
+                        }
+                    } else {
+                        value = s.default;
+                    }
+                }
+                r(container, id, parentObject, propertyProvider, value);
+            } else if (s.$ref) {
+                if (obj.schemaResolver) {
+                    var cb = function (schemas) {
+                        if (schemas && schemas.hasOwnProperty(id)) {
+                            if (JSON.stringify(schemaMap[id]) !== JSON.stringify(schemas[id])) {
+                                cleanSchemaMap(id);
+                                cleanData(id);
+                                populateSchemaMap(id, schemas[id]);
+                                var renderInfo = renderInfoMap[id];
+                                if (renderInfo) {
+                                    render(renderInfo.titleContainer, renderInfo.container, id, renderInfo.parentObject, renderInfo.propertyProvider, renderInfo.value);
+                                }
+                            }
+                        }
+                        BrutusinForms.onResolutionFinished(parentObject);
+                    };
+                    BrutusinForms.onResolutionStarted(parentObject);
+                    obj.schemaResolver([id], obj.getData(), cb);
+                }
+            }
+        }
+		
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+        /**
+         * Retrieve the initial value defined in the initial data JSON schema
+		 * 
+		 * @pre 
+		 * id must be a valid non-empty string.
+		 *
+		 * @post 
+		 * The returned value must be a valid non-null value from the nested object.
+		 *
+		 * @invariant	
+		 * When calling the render function, it updates the renderInfoMap with the provided titleContainer, container, id, parentObject, propertyProvider, and value. Then, based on the schema, the function either renders a title using the renderTitle function or recursively calls itself to handle schema references ($ref) and dependency cases.
+         */
+        function getInitialValue(id) {
+            var fields = id.substring(2).split('.');
+            var initialValueClone = initialValue;
+            for(var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+                if (field != "") {
+                    if (field.substring(field.length - 1) === "]") {
+                        //Get the index from the array in the field
+                        var arrayIndex = parseInt(field.substring(field.lastIndexOf("[") + 1, field.length - 1));
+                        //Substring off the square bracket from the field
+                        field = field.substring(0, field.lastIndexOf("["));
+                        initialValueClone = initialValueClone[field][arrayIndex];
+                    } else {
+                        initialValueClone = initialValueClone[field];
+                    }
+                }
+            }
+
+            return initialValueClone;
+        }
+		
+		
+
+--------------------------------------------------------------------------------------------------------------------------
+
+        /**
+         * Retrieve the values from the input field in the form
+		 *
+		 * @pre 
+		 * schema must be a valid non-null object.
+		 * input must be a valid non-null HTMLElement.
+		 * input must have a valid tagName property.
+		 * input must have a valid value property (e.g., for input, textarea, and select elements).
+		 * input must have a valid childElementCount property (e.g., for container elements).
+		 *
+		 * @post 
+		 * The returned value must conform to the schema definition.
+		 * If the input value is an empty string, the function returns null.
+		 * If the input value does not match the schema type or format, the function returns null.
+		 *
+		 * @invariant	
+		 * The getValue function retrieves the value from the input element based on the provided schema.
+         */
+        function getValue(schema, input) {
+            if (typeof input.getValue === "function") {
+                return input.getValue();
+            }
+            var value;
+            
+            if (input.tagName.toLowerCase() === "select") {
+                value = input.options[input.selectedIndex].value;
+            } else {
+                value = input.value;
+            }
+            if (value === "") {
+                return null;
+            }
+            if (schema.type === "integer") {
+                value = parseInt(value);
+                if (!isFinite(value)) {
+                    value = null;
+                }
+            } else if (schema.type === "number") {
+                value = parseFloat(value);
+                if (!isFinite(value)) {
+                    value = null;
+                }
+            } else if (schema.type === "boolean") {
+                if (input.tagName.toLowerCase() === "input") {
+                    value = input.checked;
+                    if (!value) {
+                        value = false;
+                    }
+                } else if (schema.format === "checkbox") {
+                    var checkboxValue = [];
+                    for (var i = 0; i < input.childElementCount; i++) {
+                        if (input.childNodes[i].tagName === "INPUT" && input.childNodes[i].checked) {
+                            checkboxValue.push(input.childNodes[i].value);
+                        }
+                    }
+                    if (checkboxValue.length !== 0) {
+                        value = checkboxValue;
+                    }
+                    else {
+                        value = null;
+                    }
+                } else if (input.tagName.toLowerCase() === "select") {
+                    if (input.value === "true") {
+                        value = true;
+                    } else if (input.value === "false") {
+                        value = false;
+                    } else {
+                        value = null;
+                    }
+                } else if (schema.format === "radio") {
+                    value = null;
+                    for (var i = 0; i < input.childElementCount; i++) {
+                        if (input.childNodes[i].tagName === "INPUT" && input.childNodes[i].checked) {
+                            value = input.childNodes[i].value;
+                            break;
+                        }
+                    }
+                }
+            } else if (schema.type === "any") {
+                if (value) {
+                    eval("value=" + value);
+                }
+            }
+            return value;
+        }
+		
+		
+		
+--------------------------------------------------------------------------------------------------------------------------
+
+
+

@@ -1,0 +1,340 @@
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary CSS classes and DOM modifications based on the schema. 
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds specific CSS classes and DOM modifications to the provided element based on the provided schema.
+     */
+    BrutusinForms.addDecorator(function (element, schema) {
+        if (element.tagName) {
+            var tagName = element.tagName.toLowerCase();
+            if (tagName === "input" && (element.type !== "file" && element.type !== "checkbox" && element.type !== "radio" && element.type !== "range") || tagName === "textarea") {
+                element.className += " form-control";
+            } else if (tagName === "select") {
+                element.className += " form-control";
+            } else if (tagName === "button") {
+                if (element.className === "remove") {
+                    element.className += " bi bi-x";
+                    while (element.firstChild) {
+                        element.removeChild(element.firstChild);
+                    }
+                }
+                element.className += " btn btn-warning btn-sm";
+            } else if (tagName === "input" && element.type === "file") {
+                element.className += " custom-file-input";
+                var label = document.createElement("label");
+                label.className = "custom-file-label";
+                label.innerHTML = "Choose file";
+                label.setAttribute("for", element.id);
+                element.parentNode.classList.add("custom-file");
+                element.parentNode.appendChild(label);
+                if ("undefined" !== typeof bsCustomFileInput || "undefined" !== typeof $) {
+                    $(document).ready(function () {
+                        bsCustomFileInput.init();
+                    });
+                }
+            }
+        }
+    });
+	
+	
+	
+--------------------------------------------------------------------------------------------------------------------------	
+
+
+
+
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary popover with the help content based on the title.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds a collapsible behavior to the provided form element if the schema object specifies it as collapsible.
+     */
+    BrutusinForms.addDecorator(function (element, schema) {
+        if (schema !== undefined) {
+            if (schema.collapsible !== undefined && schema.collapsible === true) {
+                var parentElement = element.parentElement;
+                var tagName = parentElement.tagName.toLowerCase();
+                if (tagName === "form") {
+                    parentElement.className += " brutusin-card-body";
+                    var formParentElement = parentElement.parentElement;
+
+                    var divCard = document.createElement("div");
+                    divCard.className = "brutusin-card";
+                    divCard.innerHTML = "<div class='brutusin-card-header'><a id='expand-btn' class='btn btn-link' data-toggle='collapse' data-target='#brutusin-form-collapsible' aria-expanded='true' aria-controls='brutusin-form-collapsible'></a></div>";
+
+                    var divCardBody = document.createElement("div");
+                    divCardBody.className = "collapse show";
+                    divCardBody.id = "brutusin-form-collapsible";
+                    divCardBody.setAttribute("aria-expanded", "true");
+                    divCardBody.appendChild(parentElement);
+                    divCard.appendChild(divCardBody);
+                    
+                    formParentElement.appendChild(divCard);
+
+                    if (schema.title !== undefined) {
+                        document.getElementById("expand-btn").textContent = schema.title;
+                    }
+                }
+            } 
+        }
+    });
+	
+--------------------------------------------------------------------------------------------------------------------------	
+
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid non-null object.
+	 *
+	 * @post 
+	 * The element must have the necessary CSS classes and DOM modifications based on the schema.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds specific CSS classes and DOM modifications to the provided input element if it is of type "range".
+     */
+    BrutusinForms.addDecorator(function (element, schema) {
+        if (element.tagName) {
+            var tagName = element.tagName.toLowerCase();
+            if (tagName === "input" && element.type === "range") {
+                element.className += " form-control-range";
+                var elementId = element.id;
+                element.setAttribute("oninput", "rangevalue" + elementId.substring(elementId.length - 3, elementId.length) + ".value=value");
+                var output = document.createElement("output");
+                output.id = "rangevalue" + elementId.substring(elementId.length - 3, elementId.length);
+                element.parentNode.appendChild(output);
+            }
+        }
+    });
+	
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary popover with the help content based on the title.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds a help icon with appropriate attributes and behavior to the provided label or button elements based on the provided element and schema. 
+     */
+    BrutusinForms.addDecorator(function (element, schema) {
+        if (element.tagName) {
+            var tagName = element.tagName.toLowerCase();
+            if (tagName === "label" || tagName === "button") {
+                if (element.title) {
+                    var helpLink = document.createElement("i");
+                    helpLink.setAttribute("style", "outline: 0; text-decoration: none; margin-left: 2px;");
+                    helpLink.setAttribute("tabIndex", -1);
+                    helpLink.className = "bi bi-info-circle-fill"
+                    helpLink.setAttribute("data-toggle", "popover");
+                    helpLink.setAttribute("data-trigger", "hover");
+                    if ("undefined" === typeof markdown) {
+                        helpLink.setAttribute("data-content", element.title);
+                    } else {
+                        helpLink.setAttribute("data-content", markdown.toHTML(element.title));
+                    }
+                    if (schema.title) {
+                        helpLink.title = schema.title;
+                    } else {
+                        helpLink.title = "Help";
+                    }
+                    $(helpLink).popover({
+                        placement: 'top',
+                        container: 'body',
+                        html: !("undefined" === typeof markdown)
+                    });
+                    if (tagName === "label") {
+                        element.appendChild(helpLink);
+                    }
+                    else if (tagName === "button") {
+                        element.parentNode.appendChild(helpLink);
+                    }
+                }
+            }
+        }
+    });
+	
+	
+
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * schema must be a valid non-null object.
+	 * input must be a valid non-null HTMLElement.
+	 *
+	 * @post 
+	 * The returned value must be of a valid type according to the schema definition.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.bootstrap.addFormatDecorator function adds format-specific decorations to the provided form elements based on the specified format, inputType, bootstrapIcon, titleDecorator, and cb parameters.
+     */
+    BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, bootstrapIcon, titleDecorator, cb) {
+        BrutusinForms.addDecorator(function (element, schema) {
+            if (element.tagName) {
+                var tagName = element.tagName.toLowerCase();
+                if (tagName === "input" && schema.type === "string" && schema.format === format) {
+                    if (inputType) {
+                        element.type = inputType;
+                    }
+                    if (bootstrapIcon) {
+                        var parent = element.parentNode;
+                        var table = document.createElement("table");
+                        table.setAttribute("style", "border:none;margin:0");
+                        var tr = document.createElement("tr");
+                        var td1 = document.createElement("td");
+                        td1.setAttribute("style", "width:100%; padding:0;padding-right:4px");
+                        table.appendChild(tr);
+                        tr.appendChild(td1);
+                        parent.removeChild(element);
+                        td1.appendChild(element);
+                        parent.appendChild(table);
+                        var td = document.createElement("td");
+                        tr.appendChild(td);
+                        td.setAttribute("style", "padding:0");
+                        var searchButton = document.createElement("button");
+                        searchButton.className = "btn btn-default bi " + bootstrapIcon;
+                        searchButton.onclick = function () {
+                            cb(element);
+                        };
+                        td.appendChild(searchButton);
+                    }
+                }
+            }
+
+            if (element instanceof Text) {
+                var tagName = element.parentElement.tagName.toLowerCase();
+                if (tagName === "label" && titleDecorator) {
+                    element.textContent = element.textContent + titleDecorator;
+                }
+            }
+        });
+    };
+	
+--------------------------------------------------------------------------------------------------------------------------	
+
+
+    /**
+     * Adds a loading animation
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 *
+	 * @post The loading spinner and loading layer must be added to the parent of the element, and their visibility must be set to "visible".	
+	 * 
+	 * @invariant
+	 * The BrutusinForms.bootstrap.showLoading function shows a loading spinner on the specified element by adding the necessary HTML elements and CSS classes.
+     */
+    BrutusinForms.bootstrap.showLoading = function (element) {
+        if (element && element.parentNode) {
+            var loadingId = element.id + "_loading";
+            var loadingLayerId = element.id + "_loading-layer";
+            var loading = document.getElementById(loadingId);
+            var loadingLayer = document.getElementById(loadingLayerId);
+            if (!loading) {
+                var tagName = element.tagName.toLowerCase();
+                element.parentNode.style.position = "relative";
+                loading = document.createElement("span");
+                loading.id = loadingId;
+                loading.className = "spinner-border";
+                if (tagName === "select") {
+                    loading.className += " loading-icon-select";
+                } else if (element.type === "checkbox") {
+                    loading.className += " loading-icon-checkbox";
+                } else {
+                    loading.className += " loading-icon";
+                }
+                element.parentNode.appendChild(loading);
+                loadingLayer = document.createElement("div");
+                loadingLayer.className = "loading-layer";
+                loadingLayer.appendChild(document.createTextNode(""));
+                loadingLayer.id = loadingLayerId;
+                element.parentNode.appendChild(loadingLayer);
+            }
+            loading.style.visibility = "visible";
+            loadingLayer.style.visibility = "visible";
+        }
+    }
+	
+	
+--------------------------------------------------------------------------------------------------------------------------	
+
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 *
+	 * @post 
+	 * The "is-invalid" class must be removed from the element's class list.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.onValidationSuccess function removes the "is-invalid" class from the class list of the provided element, if it exists.
+     */
+    BrutusinForms.onValidationSuccess = function (element) {
+        element.className = element.className.replace(" is-invalid", "");
+    }
+	
+--------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * **This is callback function extended from the main class**
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * message must be a valid non-empty string.
+	 *
+	 * @post 
+	 * The error message must be displayed near the element, and the "is-invalid" class must be added to the element's class list.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.onValidationError function appends an error message div (div) with the provided message to the parent node of the given element. It also sets the element's title attribute to the value of BrutusinForms.messages["validationError"] and adds the "is-invalid" class to the element's class list if it does not already exist.	 
+     */
+    BrutusinForms.onValidationError = function (element, message) {
+
+        var div = document.createElement("div");
+        div.className = "invalid-feedback";
+        if ("undefined" === typeof markdown) {
+            div.innerHTML = message;
+        } else {
+            div.innerHTML = markdown.toHTML(message);
+        }
+        element.parentNode.appendChild(div);
+        element.title = BrutusinForms.messages["validationError"];
+        if (!element.className.includes("is-invalid")) {
+            element.className += " is-invalid";
+        }
+    }
