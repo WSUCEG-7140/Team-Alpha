@@ -16,6 +16,11 @@
  * @author Ignacio del Valle Alles idelvall@brutusin.org
  */
 
+/**
+ * @name BrutusinForms
+ * @class
+ * @classdesc This is the main brutusin-form class
+ */
 if (typeof brutusin === "undefined") {
     window.brutusin = new Object();
 } else if (typeof brutusin !== "object") {
@@ -57,7 +62,18 @@ if (typeof brutusin === "undefined") {
         };
     }
 
+    /**
+     * Static class of BrutusinForms
+     * @constructor
+     * @type {object}
+     */
     var BrutusinForms = new Object();
+
+    /**
+     * An array of messages used in the generation of HTML form and validations.
+     * @name BrutusinForms.messages
+     * @type {array}
+     */
     BrutusinForms.messages = {
         "validationError": "Validation error",
         "required": "This field is **required**",
@@ -76,8 +92,8 @@ if (typeof brutusin === "undefined") {
         "exclusiveMaximum": "Value must be **lower than** `{0}`",
         "minProperties": "At least `{0}` properties are required",
         "maxProperties": "At most `{0}` properties are allowed",
-        "email": "The email must at least consists an asterisk (@), following by a domain name with a dot (.)",   
-		"url": "The URL provided is not a valid URL.",		
+        "email": "The email must at least consists an asterisk (@), following by a domain name with a dot (.)",
+        "url": "The URL provided is not a valid URL.",
         "uniqueItems": "Array items must be unique",
         "addItem": "Add item",
         "true": "True",
@@ -86,20 +102,47 @@ if (typeof brutusin === "undefined") {
 
     /**
      * Callback functions to be notified after an HTML element has been rendered (passed as parameter).
-     * @type type
+     * @name BrutusinForms.decorators
+     * @callback
+     * @type {array}
      */
     BrutusinForms.decorators = new Array();
 
+    /**
+     * Register a callback function to be notified after an HTML element has been rendered (passed as parameter). See {@link brutusin-json-forms-bootstrap.js} for an example of bootstrap decorator.
+     * @static
+     * @name BrutusinForms.addDecorator
+     * @param {type} f 
+     */
     BrutusinForms.addDecorator = function (f) {
         BrutusinForms.decorators[BrutusinForms.decorators.length] = f;
     };
 
+    /**
+     * Register a callback function to be notified when just starting to resolve a schema
+     * @static
+     * @name BrutusinForms.onResolutionStarted
+     * @param {HTMLElement} element 
+     */
     BrutusinForms.onResolutionStarted = function (element) {
     };
 
+    /**
+     * Register a callback function to be notified when the resolution is completed
+     * @static
+     * @name BrutusinForms.onResolutionFinished
+     * @param {HTMLElement} element 
+     */
     BrutusinForms.onResolutionFinished = function (element) {
     };
 
+    /**
+     * Calls the onValidationError function when there is a validation error on the form
+     * @static
+     * @name BrutusinForms.onValidationError
+     * @param {HTMLElement} element 
+     * @param {string} message 
+     */
     BrutusinForms.onValidationError = function (element, message) {
         element.focus();
         if (!element.className.includes(" error")) {
@@ -108,23 +151,45 @@ if (typeof brutusin === "undefined") {
         alert(message);
     };
 
+    /**
+     * Calls when the validation is passed
+     * @static
+     * @name BrutusinForms.onValidationSuccess
+     * @param {HTMLElement} element 
+     */
     BrutusinForms.onValidationSuccess = function (element) {
         element.className = element.className.replace(" error", "");
     };
 
     /**
      * Callback function to be notified after a form has been rendered (passed as parameter).
+     * @name BrutusinForms.postRender
+     * @callback
      * @type type
      */
     BrutusinForms.postRender = null;
     /**
      * BrutusinForms instances created in the document
-     * @type Array
+     * @name BrutusinForms.instances
+     * @type {Array}
      */
     BrutusinForms.instances = new Array();
     /**
      * BrutusinForms factory method
+     * @name BrutusinForms.create
+     * @static
      * @param {type} schema schema object
+     * @property {object} schemaMap - The schema map extracted from the original schema excluding some fields.
+     * @property {object} dependencyMap - The dependency map that checks which schema is it dependent on.
+     * @property {object} renderInfoMap - The schema that is extracted from the schema resolver.
+     * @property {HTMLElement} container - Container of the rendered form.
+     * @property {object} data - The JSON schema retrieved from the webpage.
+     * @property {string} error - Error message that will be display in the webpage.
+     * @property {(string|number|boolean)} initialValue - The initial value defined in the JSON schema.
+     * @property {number} inputCounter - Counter for the input fields generated, used for input ID generation.
+     * @property {object} root - The `schema` param will be passed into here.
+     * @property {string} formId - The unique form ID will be bind on the `<form id="">`.
+     * @property {object} renderers - Use to identify the input type of the field and renders the form.
      * @returns {BrutusinForms.create.obj|Object|Object.create.obj}
      */
     BrutusinForms.create = function (schema) {
@@ -229,13 +294,13 @@ if (typeof brutusin === "undefined") {
                 } else if (s.format === "time") {
                     input.type = "time";
                 } else if (s.format === "tel") {
-                    input.type = "tel";			
+                    input.type = "tel";
                 } else if (s.format === "email") {
                     input.type = "email";
                 } else if (s.format === "password") {
                     input.type = "password";
                 } else if (s.format === "url") {
-                    input.type = "url";	
+                    input.type = "url";
                 } else if (s.format === "range") {
                     input.type = "range";
                     if (s.minimum) {
@@ -246,7 +311,7 @@ if (typeof brutusin === "undefined") {
                     }
                     if (s.step) {
                         input.step = s.step;
-                    }			
+                    }
                 } else if (s.format === "text") {
                     input = document.createElement("textarea");
                 } else {
@@ -271,7 +336,7 @@ if (typeof brutusin === "undefined") {
                             if (parentSchema && parentSchema.type === "object") {
                                 if (parentSchema.required) {
                                     return BrutusinForms.messages["required"];
-                                    } else if (parentSchema.requiredProperties) {
+                                } else if (parentSchema.requiredProperties) {
                                     for (var i = 0; i < parentSchema.requiredProperties.length; i++) {
                                         if (parentSchema.requiredProperties[i] === s.$id.substring(2)) {
                                             return BrutusinForms.messages["required"];
@@ -308,13 +373,13 @@ if (typeof brutusin === "undefined") {
                             if (!value.match(/[^@\s]+@[^@\s]+\.[^@\s]+/)) {
                                 return BrutusinForms.messages["email"];
                             }
-                        } 
+                        }
 
                         if (!s.pattern && s.format === "url") {
                             if (!value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)) {
                                 return BrutusinForms.messages["url"];
                             }
-                        }						
+                        }
                     }
                     if (value !== null && !isNaN(value)) {
                         if (s.multipleOf && value % s.multipleOf !== 0) {
@@ -361,20 +426,7 @@ if (typeof brutusin === "undefined") {
             }
             if (s.class) {
                 input.className = s.class;
-            }            
-//        if (s.pattern) {
-//            input.pattern = s.pattern;
-//        }
-//        if (s.required) {
-//            input.required = true;
-//        }
-//       
-//        if (s.minimum) {
-//            input.min = s.minimum;
-//        }
-//        if (s.maximum) {
-//            input.max = s.maximum;
-//        }
+            }
             input.onchange();
             input.id = getInputId();
             inputCounter++;
@@ -388,17 +440,17 @@ if (typeof brutusin === "undefined") {
             var input;
             if (s.format === "radio") {
                 input = document.createElement("div");
-		input.className = "form-check form-check-inline";
+                input.className = "form-check form-check-inline";
                 for (var i = 0; i < s.enum.length; i++) {
                     var radioInput = document.createElement("input");
                     radioInput.type = "radio";
                     radioInput.name = s.$id.substring(2);
                     radioInput.value = s.enum[i];
                     radioInput.id = s.enum[i];
-		    radioInput.className = "form-check-input";
+                    radioInput.className = "form-check-input";
                     var label = document.createElement("label");
                     label.htmlFor = s.enum[i];
-		    label.className = "form-check-label";
+                    label.className = "form-check-label";
                     var labelText = document.createTextNode(s.enum[i]);
                     appendChild(label, labelText);
                     if (value && s.enum[i] === value) {
@@ -413,19 +465,19 @@ if (typeof brutusin === "undefined") {
             }
             else if (s.format === "checkbox") {
                 input = document.createElement("div");
-		input.className = "form-check form-check-inline";
+                input.className = "form-check form-check-inline";
                 for (var i = 0; i < s.enum.length; i++) {
                     checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     checkbox.name = s.enum[i];
                     checkbox.value = s.enum[i];
-		    checkbox.className = "form-check-input";
+                    checkbox.className = "form-check-input";
 
                     var label = document.createElement("label");
                     label.htmlFor = s.enum[i];
-		    label.className = "form-check-label";
+                    label.className = "form-check-label";
                     var labelText = document.createTextNode(s.enum[i]);
-                    appendChild(label, labelText);  
+                    appendChild(label, labelText);
                     if (value) {
                         for (var j = 0; j < value.length; j++) {
                             if (s.enum[i] === value[j]) {
@@ -485,7 +537,7 @@ if (typeof brutusin === "undefined") {
                     return BrutusinForms.messages["invalidValue"];
                 }
             };
-			
+
             input.onchange = function () {
                 if (parentObject) {
                     parentObject[propertyProvider.getValue()] = getValue(s, input);
@@ -900,18 +952,21 @@ if (typeof brutusin === "undefined") {
             appendChild(container, div, s);
         };
         // end of array render
+
         /**
          * Renders the form inside the the container, with the specified data preloaded
-         * @param {type} c container
+         * @name obj.render
+         * @instance
+         * @param {HTMLElement} c container
          * @param {type} data json data
-         * @returns {undefined}
+         * @returns {void}
          */
         obj.render = function (c, data) {
             container = c;
             initialValue = data;
             var form = document.createElement("form");
             form.className = "brutusin-form";
-			form.id = "brutusin-form";
+            form.id = "brutusin-form";
             form.onsubmit = function (event) {
                 return false;
             };
@@ -937,14 +992,32 @@ if (typeof brutusin === "undefined") {
             }
         };
 
+        /**
+         * @deprecated
+         * @instance
+         * @name obj.getRenderingContainer
+         * @returns {HTMLElement} The container that consists the form
+         */
         obj.getRenderingContainer = function () {
             return container;
         };
 
+        /**
+         * Validates all the fields inside the form
+         * @instance
+         * @name obj.validate
+         * @returns {boolean} Validation result
+         */
         obj.validate = function () {
             return validate(container);
         };
 
+        /**
+         * Retrieves the field values from the form
+         * @instance
+         * @name obj.getData
+         * @returns {type} json object
+         */
         obj.getData = function () {
             function removeEmptiesAndNulls(object, s) {
                 if (s === null) {
@@ -959,7 +1032,7 @@ if (typeof brutusin === "undefined") {
                     }
                     if (s.format === "checkbox") {
                         return object;
-                    }                    
+                    }
                     var clone = new Array();
                     for (var i = 0; i < object.length; i++) {
                         clone[i] = removeEmptiesAndNulls(object[i], s.items);
@@ -1013,6 +1086,7 @@ if (typeof brutusin === "undefined") {
                     return object;
                 }
             }
+
             if (!container) {
                 return null;
             } else {
@@ -1024,6 +1098,11 @@ if (typeof brutusin === "undefined") {
 
         return obj;
 
+        /**
+         * Check if the dependency map forms a circle
+         * @name validateDepencyMapIsAcyclic
+         * @function
+         */
         function validateDepencyMapIsAcyclic() {
             function dfs(visitInfo, stack, id) {
                 if (stack.hasOwnProperty(id)) {
@@ -1052,6 +1131,16 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Append the child HTMLElement to the parent HTMLElement, schema is used for the decorators 
+         * @see BrutusinForms.addDecorator
+         * 
+         * @name appendChild
+         * @function
+         * @param {HTMLElement} parent - The parent HTMLElement to append with
+         * @param {HTMLElement} child - The child HTMLElement that wants to append on the parent
+         * @param {Object} [schema] - The schema object
+         */
         function appendChild(parent, child, schema) {
             parent.appendChild(child);
             for (var i = 0; i < BrutusinForms.decorators.length; i++) {
@@ -1059,6 +1148,13 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Creates a copy of the original schema excluding `items`, `properties` and `additionalProperties` field
+         * @function
+         * @name createPseudoSchema
+         * @param {Object} schema - The original JSON schema object
+         * @returns - The copy of the original schema
+         */
         function createPseudoSchema(schema) {
             var pseudoSchema = new Object();
             for (var p in schema) {
@@ -1075,6 +1171,13 @@ if (typeof brutusin === "undefined") {
             return pseudoSchema;
         }
 
+        /**
+         * Use for `$ref` type. Refer to {@link ./index.html#11}. To get the field properties under the `path` provided.
+         * @function
+         * @name getDefinition
+         * @param {string} path - The path to the defined field.
+         * @returns - The properties of the path
+         */
         function getDefinition(path) {
             var parts = path.split('/');
             var def = root;
@@ -1087,6 +1190,14 @@ if (typeof brutusin === "undefined") {
             return def;
         }
 
+        /**
+         * To find if a string is exists inside an array
+         * @function 
+         * @name containsStr
+         * @param {Array} array - The array to check against
+         * @param {string} string - The string to look for
+         * @returns {boolean} - Result of the string exists in the array or not
+         */
         function containsStr(array, string) {
             for (var i = 0; i < array.length; i++) {
                 if (array[i] == string) {
@@ -1096,6 +1207,13 @@ if (typeof brutusin === "undefined") {
             return false;
         }
 
+        /**
+         * Rename the `required` field to `requiredProperties` for certain property type in the schema to support JSON Schema v4.
+         * See example {@link ./index.html#8}
+         * @function
+         * @name renameRequiredPropeties
+         * @param {Object} schema - The JSON schema object
+         */
         function renameRequiredPropeties(schema) {
             if (!schema) {
                 return;
@@ -1137,6 +1255,13 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Generates a schema map based on the provided JSON schema
+         * @function
+         * @name populateSchemaMap
+         * @param {string} name - The schema ID
+         * @param {Object} schema - The JSON schema object
+         */
         function populateSchemaMap(name, schema) {
             var pseudoSchema = createPseudoSchema(schema);
             pseudoSchema["$id"] = name;
@@ -1246,6 +1371,14 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Renders the label for the input field
+         * @name renderTitle
+         * @function
+         * @param {HTMLElement} container - The container for the label element
+         * @param {string} title - The title for the label
+         * @param {Object} schema - The JSON schema object
+         */
         function renderTitle(container, title, schema) {
             if (container) {
                 if (title) {
@@ -1269,10 +1402,23 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Concat the formId and inputCounter to form an unique ID
+         * @name getInputId
+         * @function
+         * @returns {string} The ID for the input field
+         */
         function getInputId() {
             return formId + "_" + inputCounter;
         }
 
+        /**
+         * Validates if the form input fields adhere to all the validations defined
+         * @name validate
+         * @function
+         * @param {HTMLElement} element 
+         * @returns {boolean} The result of the validation
+         */
         function validate(element) {
             var ret = true;
             if (element.hasOwnProperty("getValidationError")) {
@@ -1294,6 +1440,12 @@ if (typeof brutusin === "undefined") {
             return ret;
         }
 
+        /**
+         * Clears the first child element of the selected container
+         * @function
+         * @name clear
+         * @param {HTMLElement} container 
+         */
         function clear(container) {
             if (container) {
                 while (container.firstChild) {
@@ -1302,6 +1454,17 @@ if (typeof brutusin === "undefined") {
             }
         }
 
+        /**
+         * Renders the HTML form based on the provided JSON schema
+         * @function
+         * @name render
+         * @param {HTMLElement} titleContainer - The label container that needs to generate the label field in it
+         * @param {HTMLElement} container - The input field container that needs to generate the input field in it
+         * @param {string} id - The schema ID
+         * @param {Object} parentObject - The parent object of the current schema ID
+         * @param {Object} propertyProvider - The properties of the current schema ID
+         * @param {string|number|boolean} value - The initial or default value defined (if exists) 
+         */
         function render(titleContainer, container, id, parentObject, propertyProvider, value) {
             //console.log(id);
             var schemaId = getSchemaId(id);
@@ -1329,7 +1492,7 @@ if (typeof brutusin === "undefined") {
                 if (!value) {
                     if (typeof initialValue !== "undefined" && initialValue !== null) {
                         value = getInitialValue(id);
-                         if (value === null && typeof s.default !== "undefined") {
+                        if (value === null && typeof s.default !== "undefined") {
                             value = s.default;
                         }
                     } else {
@@ -1361,6 +1524,8 @@ if (typeof brutusin === "undefined") {
 
         /**
          * Used in object additionalProperties and arrays
+         * @function
+         * @name createPropertyProvider
          * @param {type} getValue
          * @param {type} onchange
          * @returns {Object.create.createPropertyProvider.ret}
@@ -1372,6 +1537,13 @@ if (typeof brutusin === "undefined") {
             return ret;
         }
 
+        /**
+         * Retrieve the initial value defined in the initial data JSON schema
+         * @name getInitialValue
+         * @function
+         * @param {string} id - The schema ID
+         * @returns {string|number|boolean} The initial value defined in the JSON schema based on the ID
+         */
         function getInitialValue(id) {
             var fields = id.substring(2).split('.');
             var initialValueClone = initialValue;
@@ -1389,9 +1561,18 @@ if (typeof brutusin === "undefined") {
                     }
                 }
             }
+
             return initialValueClone;
         }
 
+        /**
+         * Retrieve the values from the input field in the form
+         * @name getValue
+         * @function
+         * @param {Object} schema - The JSON schema
+         * @param {HTMLInputElement} input - The input element retrieves from the form
+         * @returns {string|number|boolean} The values of the input field
+         */
         function getValue(schema, input) {
             if (typeof input.getValue === "function") {
                 return input.getValue();
@@ -1434,7 +1615,7 @@ if (typeof brutusin === "undefined") {
                     }
                     else {
                         value = null;
-                    }                    
+                    }
                 } else if (input.tagName.toLowerCase() === "select") {
                     if (input.value === "true") {
                         value = true;
@@ -1450,7 +1631,7 @@ if (typeof brutusin === "undefined") {
                             value = input.childNodes[i].value;
                             break;
                         }
-                    }					
+                    }
                 }
             } else if (schema.type === "any") {
                 if (value) {
@@ -1460,18 +1641,45 @@ if (typeof brutusin === "undefined") {
             return value;
         }
 
+        /**
+         * Replace the ID from string or int to [*] or [#] if found
+         * @name getSchemaId
+         * @function
+         * @param {string} id - The schema id
+         * @returns The ID that has been replaced
+         */
         function getSchemaId(id) {
             return id.replace(/\["[^"]*"\]/g, "[*]").replace(/\[\d*\]/g, "[#]");
         }
 
+        /**
+         * This method is to retrieve the parent schemaId based on the provided schemaId
+         * @function
+         * @name getParentSchemaId
+         * @param {string} id - The schemaId to use for retrieving the parent schemaId
+         * @returns {string} The parent schemaId of the provided id.
+         */
         function getParentSchemaId(id) {
             return id.substring(0, id.lastIndexOf("."));
         }
 
+        /**
+         * This method is to retrieve the JSON schemas under the specified schemaId.
+         * @function
+         * @name getSchema
+         * @param {string} schemaId - The schemaId to use for getting the child arrays.
+         * @returns {Object}
+         */
         function getSchema(schemaId) {
             return schemaMap[schemaId];
         }
 
+        /**
+         * Removes the child schema based on the schema ID provided
+         * @name cleanSchemaMap
+         * @function
+         * @param {string} schemaId - The schema ID used to identify which part of the child needs to be removed
+         */
         function cleanSchemaMap(schemaId) {
             for (var prop in schemaMap) {
                 if (prop.startsWith(schemaId)) {
@@ -1479,6 +1687,13 @@ if (typeof brutusin === "undefined") {
                 }
             }
         }
+
+        /**
+         * This method is to clean up the DOM Element after resolving the schema (used in dynamic schema resolver)
+         * @function
+         * @name cleanData
+         * @param {string} schemaId - The identifier of the schema to use for cleaning data.
+         */
         function cleanData(schemaId) {
             var expression = new Expression(schemaId);
             expression.visit(data, function (data, parent, property) {
@@ -1486,6 +1701,14 @@ if (typeof brutusin === "undefined") {
             });
         }
 
+        /**
+         * Used in schema resolver. When it detects the schema depends on another schema based on the output has a change,
+         * it renders the fields based on the schema defined in the resolver.
+         * @function
+         * @name onDependencyChanged
+         * @param {string} name - The schema ID
+         * @param {HTMLElement} source - The HTMLElement of the source
+         */
         function onDependencyChanged(name, source) {
 
             var arr = dependencyMap[name];
@@ -1510,10 +1733,15 @@ if (typeof brutusin === "undefined") {
             };
             BrutusinForms.onResolutionStarted(source);
             obj.schemaResolver(arr, obj.getData(), cb);
-
-
         }
 
+        /**
+         * @function
+         * @name Expression
+         * @constructor
+         * @param {string} exp - The schemaId to be parsed.
+         * @returns {Expression} An Expression object.
+         */
         function Expression(exp) {
             if (exp === null || exp.length === 0 || exp === ".") {
                 exp = "$";

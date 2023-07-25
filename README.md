@@ -1,26 +1,26 @@
 # json-forms
-[![bower version](https://img.shields.io/bower/v/json-forms.svg?style=flat-square)](#bower)
-[![Build Status](https://api.travis-ci.org/brutusin/json-forms.svg?branch=master)](https://travis-ci.org/brutusin/json-forms)
-
 `org.brutusin:json-forms` is a javascript library that generates HTML forms from [JSON Schemas](http://json-schema.org).
 
 ## Status
-> I am currently not having time to maintain this project, so first of all my apologies if some issues have been unresponded.
-Branch v2 contains a completely new rearchitecture of the project, that I started several months ago but left unfinished. If someone is interested in continuing my work I will be happy to guide them
+> We have updated our own flavour of Brutusin forms to an extent where we have covered all the fields and attributes that a form possess. Our project mainly generates HTML Form from Json schemas.
 
 ---
 **Table of Contents:** 
-
-- [org.brutusin:json-forms](#)
+- [json-forms](#json-forms)
+  - [Status](#status)
   - [Features](#features)
   - [Usage](#usage)
   - [Demo](#demo)
   - [Dynamic schemas](#dynamic-schemas)
+    - [`dependsOn` schema extension](#dependson-schema-extension)
+    - [Dynamic schema resolution](#dynamic-schema-resolution)
   - [API](#api)
-  - [CDN](#cdn)
-  - [Support, bugs and requests](#support-bugs-and-requests)
+    - [Static members:](#static-members)
+    - [Instance members:](#instance-members)
+  - [Documentation:](#documentation)
+  - [Support bugs and requests](#support-bugs-and-requests)
   - [Authors](#authors)
-  - [License](#license)
+  - [Credits](#credits)
 
 ## Features
 * Dynamic schemas support
@@ -52,8 +52,9 @@ bf.render(container, data);
 ```
 
 ## Demo
-[![demo](http://brutusin.org/json-forms/img/json-forms.png)](http://brutusin.org/json-forms/)
-http://brutusin.org/json-forms/
+
+[![demo](https://github.com/WSUCEG-7140/Team-Alpha/img/json-forms-demo.jpg)]
+
 
 ## Dynamic schemas
 This library supports dynamic schemas, that is, subschemas that can change depending on the value of other parts of the data.
@@ -86,18 +87,23 @@ Member|Description
 `bf.getData()`| Returns the javascript object with the data entered by the user
 `bf.schemaResolver(schemaIdArray, data)`| Schema resolver for [dynamic schemas](#dynamic-schemas)
 
-## CDN
+## Documentation:
 
-http://www.jsdelivr.com/projects/brutusin.json-forms
+We have used both Doxygen and Jsdoc for documentation of code. [Jsdoc]() supports documentation for javascript Files. [Doxygen]() provides documentation for rest of the files.
 
 ## Support bugs and requests
-https://github.com/brutusin/json-forms/issues
+
+https://github.com/WSUCEG-7140/Team-Alpha/issues
 
 ## Authors
 
+* Yaswanth Jonnakuti
+* Rakesh Gunturu
+* Saikumar Pulluri
+* Rohith Kalakuntla
+
+
+## Credits
 - Ignacio del Valle Alles (<https://github.com/idelvall/>)
 
 Contributions are always welcome and greatly appreciated!
-
-## License
-Apache License, Version 2.0

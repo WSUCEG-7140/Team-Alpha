@@ -31,3 +31,27 @@ jobs:
 
       - name: Running Code Coverage for Running Test Cases.
         run: coverage report -m
+
+
+  Docs:
+    name: Testing Documentation using Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Doxygen
+        # Install Doxygen on Ubuntu
+        run: sudo apt-get install -y doxygen
+
+      - name: Generate Documentation
+        # Generate the documentation using doxygen
+        run: doxygen Doxyfile
+
+      - name: Upload Documentation
+        # Upload the documentation as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Documentation
+          path: html/
+
