@@ -34,7 +34,7 @@ jobs:
 
 
   Docs:
-    name: Testing Documentation using Documentation
+    name: Generating Documentation.
     runs-on: ubuntu-latest
     steps:
       - name: Github Checkout
