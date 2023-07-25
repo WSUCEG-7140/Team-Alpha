@@ -53,7 +53,7 @@ bf.render(container, data);
 
 ## Demo
 
-[![demo](https://github.com/WSUCEG-7140/Team-Alpha/img/json-forms-demo.jpg)]
+[![demo](https://raw.githubusercontent.com/WSUCEG-7140/Team-Alpha/master/img/json-forms-demo.jpg)]
 
 
 ## Dynamic schemas
