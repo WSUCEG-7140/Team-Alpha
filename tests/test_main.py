@@ -8,8 +8,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.alert import Alert
+"""!
+@brief This is the main test file that runs in Github actions and is triggered using .github/workflows/python_tests.html
+@see Solves [Issue#4](https://github.com/WSUCEG-7140/Team-Alpha/pull/27)
+"""
 
-#Fetching required field from alert Json.
+
+"""!
+@brief Below function is used to fetch required string from json output generated from getData() function.
+@return It returns value z which is output of search input variable.
+"""
 def fetch_string(text, search):
     with open("data_file.json", "w") as write_file:
         print(text, file=write_file)
@@ -17,7 +25,10 @@ def fetch_string(text, search):
     z = data[search]
     return z
 
-#Validating 2 different date formats.
+"""!
+@brief Below function is used to validate 2 different date formats that is validated from getData() function.
+@return If the date format has matched, It returns a value True else returns False.
+"""
 def validate_different_date_format(format1, format2):
     #format1 --> 07/13/2022
     #format2 --> 2022-07-13
@@ -28,7 +39,10 @@ def validate_different_date_format(format1, format2):
     else:
         return False
         
-#Validating 24HR time formats.
+"""!
+@brief Below function is used to validate 2 different time formats that is validated from getData() function.
+@return If the date format has matched, It returns a value True else returns False.
+"""
 def validate_different_time_format(format1, format2):
     #format1 --> 09:30PM
     #format2 --> 21:30
@@ -53,8 +67,11 @@ def validate_different_time_format(format1, format2):
     else:
         return False
 
-
-#Validating String on Success testing both functionalities - getdata and validate.
+"""!
+@brief Below function is used to validate string on success.
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def string_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -91,7 +108,11 @@ def string_validation_on_success(input1):
     chrome_driver.quit()
     return True
 
-#Validating String on Failure testing both functionalities - getdata and validate.
+"""!
+@brief Below function is used to validate string on failure.
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def string_validation_on_failure(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -128,7 +149,12 @@ def string_validation_on_failure(input1):
     chrome_driver.quit()
     return True
 
-#Validating Email on Success testing both functionalities - getdata and validate.
+"""!
+@brief Below function is used to validate email input type on success.
+@see Solves [Issue#10](https://github.com/WSUCEG-7140/Team-Alpha/pull/14)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def email_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -174,8 +200,13 @@ def email_validation_on_success(input1):
     sleep(1)
     chrome_driver.quit()
     return True
-    
-#Validating Email on Failure testing both functionalities - getdata and validate.
+
+"""!
+@brief Below function is used to validate email input type on failure.
+@see Solves [Issue#10](https://github.com/WSUCEG-7140/Team-Alpha/pull/14)
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def email_validation_on_failure(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -223,7 +254,12 @@ def email_validation_on_failure(input1):
     return True
     
     
-#Validating date on Success testing both functionalities - getdata and validate.
+"""!
+@brief Below function is used to validate date input type on success.
+@see Solves [Issue#13](https://github.com/WSUCEG-7140/Team-Alpha/pull/34)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def date_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -270,7 +306,12 @@ def date_validation_on_success(input1):
     chrome_driver.quit()
     return True
 
-#Validating Time on Success testing both functionalities - getdata and validate.
+"""!
+@brief Below function is used to validate time input type on success.
+@see Solves [Issue#13](https://github.com/WSUCEG-7140/Team-Alpha/pull/34)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def time_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -317,7 +358,12 @@ def time_validation_on_success(input1):
     chrome_driver.quit()
     return True
 
-#Validating Radio Button on Success.
+"""!
+@brief Below function is used to validate radio button input type on success.
+@see Solves [Issue#35](https://github.com/WSUCEG-7140/Team-Alpha/pull/36)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def radio_button_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -358,7 +404,12 @@ def radio_button_validation_on_success(input1):
     chrome_driver.quit()
     return True
    
-#Validating Radio Button on Failure.
+"""!
+@brief Below function is used to validate radio button input type on failure.
+@see Solves [Issue#35](https://github.com/WSUCEG-7140/Team-Alpha/pull/36)
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def radio_button_validation_on_failure():
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -384,7 +435,12 @@ def radio_button_validation_on_failure():
     chrome_driver.quit()
     return True
     
-#Validating Checkbox on Success.
+"""!
+@brief Below function is used to validate checkbox button input type on success.
+@see Solves [Issue#44](https://github.com/WSUCEG-7140/Team-Alpha/pull/46)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def checkbox_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -433,7 +489,12 @@ def checkbox_validation_on_success(input1):
     chrome_driver.quit()
     return True
   
-#Validating Checkbox on Failure.
+"""!
+@brief Below function is used to validate checkbox button input type on failure.
+@see Solves [Issue#44](https://github.com/WSUCEG-7140/Team-Alpha/pull/46)
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def checkbox_validation_on_failure():
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -459,7 +520,12 @@ def checkbox_validation_on_failure():
     chrome_driver.quit()
     return True
     
-#Validating Multiple Checkbox on Success.
+"""!
+@brief Below function is used to validate checking in multiple checkbox button input types on success.
+@see Solves [Issue#44](https://github.com/WSUCEG-7140/Team-Alpha/pull/46)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def multiple_checkbox_validation_on_success(input1,input2):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -501,7 +567,12 @@ def multiple_checkbox_validation_on_success(input1,input2):
     chrome_driver.quit()
     return True
 
-#Validating Range Button on Success.
+"""!
+@brief Below function is used to validate range button input type on success.
+@see Solves [Issue#51](https://github.com/WSUCEG-7140/Team-Alpha/pull/59)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def range_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -535,7 +606,12 @@ def range_validation_on_success(input1):
     chrome_driver.quit()
     return True
     
-#Validating Phone Number Button on Success.
+"""!
+@brief Below function is used to validate telephone input type on success.
+@see Solves [Issue#41](https://github.com/WSUCEG-7140/Team-Alpha/pull/58)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def phone_number_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -571,7 +647,12 @@ def phone_number_validation_on_success(input1):
     chrome_driver.quit()
     return True
     
-#Validating Phone Number Button on Failure.
+"""!
+@brief Below function is used to validate telephone input type on failure.
+@see Solves [Issue#41](https://github.com/WSUCEG-7140/Team-Alpha/pull/58)
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def phone_number_validation_on_failure(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -596,7 +677,12 @@ def phone_number_validation_on_failure(input1):
     chrome_driver.quit()
     return True
     
-#Validating URL Type on Success.
+"""!
+@brief Below function is used to validate URL input type on success.
+@see Solves [Issue#48](https://github.com/WSUCEG-7140/Team-Alpha/pull/49)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def url_validation_on_success(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -632,7 +718,12 @@ def url_validation_on_success(input1):
     chrome_driver.quit()
     return True
     
-#Validating URL Type on Failure.
+"""!
+@brief Below function is used to validate URL input type on failure.
+@see Solves [Issue#48](https://github.com/WSUCEG-7140/Team-Alpha/pull/49)
+@brief It will test both validate and getData() functions.
+@return If the error information has matched, It returns a value True else returns False.
+"""
 def url_validation_on_failure(input1):
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')
@@ -657,7 +748,12 @@ def url_validation_on_failure(input1):
     chrome_driver.quit()
     return True
     
-#Validating RESET Button
+"""!
+@brief Below function is used to validate RESET Button on success.
+@see Solves [Issue#43](https://github.com/WSUCEG-7140/Team-Alpha/pull/73)
+@brief It will test both validate and getData() functions.
+@return If the Retrieved value has matched with input, It returns a value True else returns False.
+"""
 def reset_button_validation():
     chrome_driver = webdriver.Chrome()
     chrome_driver.get('D:/a/Team-Alpha/Team-Alpha/index.html')

@@ -39,6 +39,16 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
+     *
+     * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary CSS classes and DOM modifications based on the schema. 
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds specific CSS classes and DOM modifications to the provided element based on the provided schema.
      */
     BrutusinForms.addDecorator(function (element, schema) {
         if (element.tagName) {
@@ -78,6 +88,18 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
+     *
+     * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid non-null object.
+	 *
+	 * @post 
+	 * The element must have the necessary CSS classes and DOM modifications based on the schema.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds specific CSS classes and DOM modifications to the provided input element if it is of type "range".
+     *
      */
     BrutusinForms.addDecorator(function (element, schema) {
         if (element.tagName) {
@@ -99,6 +121,16 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
+     *	 
+     * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary popover with the help content based on the title.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds a collapsible behavior to the provided form element if the schema object specifies it as collapsible.
      */
     BrutusinForms.addDecorator(function (element, schema) {
         if (schema !== undefined) {
@@ -137,6 +169,17 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
+     *
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * schema must be a valid object or undefined.
+	 *
+	 * @post 
+	 * The element must have the necessary popover with the help content based on the title.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.addDecorator function adds a help icon with appropriate attributes and behavior to the provided label or button elements based on the provided element and schema. 
+     *
      */
     BrutusinForms.addDecorator(function (element, schema) {
         if (element.tagName) {
@@ -231,6 +274,17 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * @param {string} bootstrapIcon - The Bootstrap Icon name
      * @param {string} titleDecorator - The title decorator
      * @param {CallableFunction} cb - Callback function
+     *
+     * @pre 
+	 * schema must be a valid non-null object.
+	 * input must be a valid non-null HTMLElement.
+	 *
+	 * @post 
+	 * The returned value must be of a valid type according to the schema definition.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.bootstrap.addFormatDecorator function adds format-specific decorations to the provided form elements based on the specified format, inputType, bootstrapIcon, titleDecorator, and cb parameters.
+     *
      */
     BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, bootstrapIcon, titleDecorator, cb) {
         BrutusinForms.addDecorator(function (element, schema) {
@@ -278,6 +332,15 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * Adds a loading animation
      * 
      * @param {HTMLElement} element - The HTMLElement
+	 * 
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 *
+	 * @post The loading spinner and loading layer must be added to the parent of the element, and their visibility must be set to "visible".	
+	 * 
+	 * @invariant
+	 * The BrutusinForms.bootstrap.showLoading function shows a loading spinner on the specified element by adding the necessary HTML elements and CSS classes.
+     *
      */
     BrutusinForms.bootstrap.showLoading = function (element) {
         if (element && element.parentNode) {
@@ -338,6 +401,16 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * Adds a Bootstrap class when the validation is success
      * 
      * @param {HTMLElement} element - The HTMLElement
+     *
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 *
+	 * @post 
+	 * The "is-invalid" class must be removed from the element's class list.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.onValidationSuccess function removes the "is-invalid" class from the class list of the provided element, if it exists.
+     *
      */
     BrutusinForms.onValidationSuccess = function (element) {
         element.className = element.className.replace(" is-invalid", "");
@@ -348,6 +421,17 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
      * Adds a Bootstrap class when the validation is failed
      * 
      * @param {HTMLElement} element - The HTMLElement
+     *
+	 * @pre 
+	 * element must be a valid non-null HTMLElement.
+	 * message must be a valid non-empty string.
+	 *
+	 * @post 
+	 * The error message must be displayed near the element, and the "is-invalid" class must be added to the element's class list.
+	 * 
+	 * @invariant
+	 * The BrutusinForms.onValidationError function appends an error message div (div) with the provided message to the parent node of the given element. It also sets the element's title attribute to the value of BrutusinForms.messages["validationError"] and adds the "is-invalid" class to the element's class list if it does not already exist.
+     *
      */
     BrutusinForms.onValidationError = function (element, message) {
 
