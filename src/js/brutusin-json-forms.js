@@ -1378,6 +1378,18 @@ if (typeof brutusin === "undefined") {
          * @param {HTMLElement} container - The container for the label element
          * @param {string} title - The title for the label
          * @param {Object} schema - The JSON schema object
+         *
+		 * @pre 
+		 * container must be a valid non-null HTMLElement.
+		 * title must be a valid string or undefined.
+		 * schema must be a valid object.
+		 *
+		 * @post 
+		 * The title label must be rendered in the container element with the provided title and schema properties.
+		 *
+		 * @invariant
+		 * If the title is provided and the container is not null or undefined, the function must render the titleLabel containing the provided title text along with any additional properties defined in the schema.
+         *
          */
         function renderTitle(container, title, schema) {
             if (container) {
@@ -1464,6 +1476,22 @@ if (typeof brutusin === "undefined") {
          * @param {Object} parentObject - The parent object of the current schema ID
          * @param {Object} propertyProvider - The properties of the current schema ID
          * @param {string|number|boolean} value - The initial or default value defined (if exists) 
+         *
+         * @pre 
+		 * titleContainer must be a valid HTMLElement or undefined.
+		 * container must be a valid HTMLElement.
+		 * id must be a valid non-empty string.
+		 * parentObject must be a valid object.
+		 * propertyProvider must be a valid object or undefined.
+		 * value can be of any type.
+		 *
+		 * @post 
+		 * The form element must be rendered in the container element with the provided value.
+		 * If the schema is a reference, the resolution process must be handled appropriately.
+		 *
+		 * @invariant	
+		 * When calling the render function, it updates the renderInfoMap with the provided titleContainer, container, id, parentObject, propertyProvider, and value. Then, based on the schema, the function either renders a title using the renderTitle function or recursively calls itself to handle schema references ($ref) and dependency cases.
+         *
          */
         function render(titleContainer, container, id, parentObject, propertyProvider, value) {
             //console.log(id);
@@ -1543,6 +1571,18 @@ if (typeof brutusin === "undefined") {
          * @function
          * @param {string} id - The schema ID
          * @returns {string|number|boolean} The initial value defined in the JSON schema based on the ID
+         *
+         * Retrieve the initial value defined in the initial data JSON schema
+		 * 
+		 * @pre 
+		 * id must be a valid non-empty string.
+		 *
+		 * @post 
+		 * The returned value must be a valid non-null value from the nested object.
+		 *
+		 * @invariant	
+		 * When calling the render function, it updates the renderInfoMap with the provided titleContainer, container, id, parentObject, propertyProvider, and value. Then, based on the schema, the function either renders a title using the renderTitle function or recursively calls itself to handle schema references ($ref) and dependency cases.
+         *        
          */
         function getInitialValue(id) {
             var fields = id.substring(2).split('.');
@@ -1572,6 +1612,22 @@ if (typeof brutusin === "undefined") {
          * @param {Object} schema - The JSON schema
          * @param {HTMLInputElement} input - The input element retrieves from the form
          * @returns {string|number|boolean} The values of the input field
+         *
+		 * @pre 
+		 * schema must be a valid non-null object.
+		 * input must be a valid non-null HTMLElement.
+		 * input must have a valid tagName property.
+		 * input must have a valid value property (e.g., for input, textarea, and select elements).
+		 * input must have a valid childElementCount property (e.g., for container elements).
+		 *
+		 * @post 
+		 * The returned value must conform to the schema definition.
+		 * If the input value is an empty string, the function returns null.
+		 * If the input value does not match the schema type or format, the function returns null.
+		 *
+		 * @invariant	
+		 * The getValue function retrieves the value from the input element based on the provided schema.
+         *
          */
         function getValue(schema, input) {
             if (typeof input.getValue === "function") {
