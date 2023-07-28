@@ -26,6 +26,7 @@ if (("undefined" === typeof $ || "undefined" === typeof $.fn || "undefined" === 
     console.warn("Include bootstrap-select.js (https://github.com/silviomoreto/bootstrap-select) to turn native selects into bootstrap components");
 }
 
+//@description Issue#68 - Add new field to support file format type [https://github.com/WSUCEG-7140/Team-Alpha/pull/75]
 if ("undefined" === typeof bsCustomFileInput && window.console) {
     console.warn("Include bs-custom-file-input.min.js (https://github.com/Johann-S/bs-custom-file-input) to have a more interative UI for file selection");
 }
@@ -35,7 +36,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Add bootstrap class into the input fields.
+     * @description Add bootstrap class into the input fields.
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
@@ -53,18 +54,24 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
     BrutusinForms.addDecorator(function (element, schema) {
         if (element.tagName) {
             var tagName = element.tagName.toLowerCase();
+			//@description Issue#68 - Add new field to support file format type [https://github.com/WSUCEG-7140/Team-Alpha/pull/75]
+			//@description Issue#51 - Add new field to support range input type. [https://github.com/WSUCEG-7140/Team-Alpha/pull/59]
+			//@description Issue#24 - Adding new field to support radio button [https://github.com/WSUCEG-7140/Team-Alpha/pull/25]
             if (tagName === "input" && (element.type !== "file" && element.type !== "checkbox" && element.type !== "radio" && element.type !== "range") || tagName === "textarea") {
                 element.className += " form-control";
             } else if (tagName === "select") {
+				//@description Issue#45 - Update bootstrap version to 4.6 and give website modern look [https://github.com/WSUCEG-7140/Team-Alpha/pull/47]
                 element.className += " form-control";
             } else if (tagName === "button") {
                 if (element.className === "remove") {
+					//@description Issue#55 - Abstract usage of glyphicon as bootstrap 4 doesn't support it. [https://github.com/WSUCEG-7140/Team-Alpha/pull/62]
                     element.className += " bi bi-x";
                     while (element.firstChild) {
                         element.removeChild(element.firstChild);
                     }
                 }
                 element.className += " btn btn-warning btn-sm";
+			//@description Issue#68 - Add new field to support file format type [https://github.com/WSUCEG-7140/Team-Alpha/pull/75]
             } else if (tagName === "input" && element.type === "file") {
                 element.className += " custom-file-input";
                 var label = document.createElement("label");
@@ -84,7 +91,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Customize the range input value
+     * @description Customize the range input value
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
@@ -117,7 +124,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Add a collapsible form
+     * @description Add a collapsible form
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
@@ -132,6 +139,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 	 * @invariant
 	 * The BrutusinForms.addDecorator function adds a collapsible behavior to the provided form element if the schema object specifies it as collapsible.
      */
+	//@description Issue#12 - Adding Collapsible Form support [https://github.com/WSUCEG-7140/Team-Alpha/pull/28]
     BrutusinForms.addDecorator(function (element, schema) {
         if (schema !== undefined) {
             if (schema.collapsible !== undefined && schema.collapsible === true) {
@@ -165,7 +173,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Add an info icon beside the label to show the description
+     * @description Add an info icon beside the label to show the description
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
@@ -186,6 +194,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
             var tagName = element.tagName.toLowerCase();
             if (tagName === "label" || tagName === "button") {
                 if (element.title) {
+					//@description Issue#55 - Abstract usage of glyphicon as bootstrap 4 doesn't support it [https://github.com/WSUCEG-7140/Team-Alpha/pull/62]
                     var helpLink = document.createElement("i");
                     helpLink.setAttribute("style", "outline: 0; text-decoration: none; margin-left: 2px;");
                     helpLink.setAttribute("tabIndex", -1);
@@ -245,7 +254,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Add a 3rd party library bootstrap-select for changing the `select` UI layout
+     * @description Add a 3rd party library bootstrap-select for changing the `select` UI layout
      * 
      * @param {HTMLElement} element - The HTMLElement
      * @param {Object} schema - The JSON schema
@@ -267,7 +276,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Add `format` type to the input field
+     * @description Add `format` type to the input field
      * 
      * @param {string} format - The format type. Eg: "password", "email"
      * @param {string} inputType - The input type from the JSON schema
@@ -286,6 +295,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 	 * The BrutusinForms.bootstrap.addFormatDecorator function adds format-specific decorations to the provided form elements based on the specified format, inputType, bootstrapIcon, titleDecorator, and cb parameters.
      *
      */
+	//@description Issue#55 - Abstract usage of glyphicon as bootstrap 4 doesn't support it [https://github.com/WSUCEG-7140/Team-Alpha/pull/62]
     BrutusinForms.bootstrap.addFormatDecorator = function (format, inputType, bootstrapIcon, titleDecorator, cb) {
         BrutusinForms.addDecorator(function (element, schema) {
             if (element.tagName) {
@@ -329,7 +339,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
     };
 
     /**
-     * Adds a loading animation
+     * @description Adds a loading animation
      * 
      * @param {HTMLElement} element - The HTMLElement
 	 * 
@@ -353,6 +363,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
                 element.parentNode.style.position = "relative";
                 loading = document.createElement("span");
                 loading.id = loadingId;
+				//@description Issue#55 - Abstract usage of glyphicon as bootstrap 4 doesn't support it [https://github.com/WSUCEG-7140/Team-Alpha/pull/62]
                 loading.className = "spinner-border";
                 if (tagName === "select") {
                     loading.className += " loading-icon-select";
@@ -374,7 +385,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
     }
 
     /**
-     * Remove a loading animation
+     * @description Remove a loading animation
      * 
      * @param {HTMLElement} element - The HTMLElement
      */
@@ -398,7 +409,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Adds a Bootstrap class when the validation is success
+     * @description Adds a Bootstrap class when the validation is success
      * 
      * @param {HTMLElement} element - The HTMLElement
      *
@@ -418,7 +429,7 @@ if ("undefined" === typeof bsCustomFileInput && window.console) {
 
     /**
      * **This is callback function extended from the main class**
-     * Adds a Bootstrap class when the validation is failed
+     * @description Adds a Bootstrap class when the validation is failed
      * 
      * @param {HTMLElement} element - The HTMLElement
      *
