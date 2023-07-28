@@ -63,14 +63,14 @@ if (typeof brutusin === "undefined") {
     }
 
     /**
-     * Static class of BrutusinForms
+     * @description Static class of BrutusinForms
      * @constructor
      * @type {object}
      */
     var BrutusinForms = new Object();
 
     /**
-     * An array of messages used in the generation of HTML form and validations.
+     * @description An array of messages used in the generation of HTML form and validations.
      * @name BrutusinForms.messages
      * @type {array}
      */
@@ -101,7 +101,7 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Callback functions to be notified after an HTML element has been rendered (passed as parameter).
+     * @description Callback functions to be notified after an HTML element has been rendered (passed as parameter).
      * @name BrutusinForms.decorators
      * @callback
      * @type {array}
@@ -109,7 +109,7 @@ if (typeof brutusin === "undefined") {
     BrutusinForms.decorators = new Array();
 
     /**
-     * Register a callback function to be notified after an HTML element has been rendered (passed as parameter). See {@link brutusin-json-forms-bootstrap.js} for an example of bootstrap decorator.
+     * @description Register a callback function to be notified after an HTML element has been rendered (passed as parameter). See {@link brutusin-json-forms-bootstrap.js} for an example of bootstrap decorator.
      * @static
      * @name BrutusinForms.addDecorator
      * @param {type} f 
@@ -119,7 +119,7 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Register a callback function to be notified when just starting to resolve a schema
+     * @description Register a callback function to be notified when just starting to resolve a schema
      * @static
      * @name BrutusinForms.onResolutionStarted
      * @param {HTMLElement} element 
@@ -128,7 +128,7 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Register a callback function to be notified when the resolution is completed
+     * @description Register a callback function to be notified when the resolution is completed
      * @static
      * @name BrutusinForms.onResolutionFinished
      * @param {HTMLElement} element 
@@ -137,7 +137,7 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Calls the onValidationError function when there is a validation error on the form
+     * @description Calls the onValidationError function when there is a validation error on the form
      * @static
      * @name BrutusinForms.onValidationError
      * @param {HTMLElement} element 
@@ -152,7 +152,7 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Calls when the validation is passed
+     * @description Calls when the validation is passed
      * @static
      * @name BrutusinForms.onValidationSuccess
      * @param {HTMLElement} element 
@@ -162,20 +162,20 @@ if (typeof brutusin === "undefined") {
     };
 
     /**
-     * Callback function to be notified after a form has been rendered (passed as parameter).
+     * @description Callback function to be notified after a form has been rendered (passed as parameter).
      * @name BrutusinForms.postRender
      * @callback
      * @type type
      */
     BrutusinForms.postRender = null;
     /**
-     * BrutusinForms instances created in the document
+     * @description BrutusinForms instances created in the document
      * @name BrutusinForms.instances
      * @type {Array}
      */
     BrutusinForms.instances = new Array();
     /**
-     * BrutusinForms factory method
+     * @description BrutusinForms factory method
      * @name BrutusinForms.create
      * @static
      * @param {type} schema schema object
@@ -293,14 +293,18 @@ if (typeof brutusin === "undefined") {
                     input.type = "date";
                 } else if (s.format === "time") {
                     input.type = "time";
+				//@description Issue#41 - Add new field to support phone number. [https://github.com/WSUCEG-7140/Team-Alpha/pull/58]
                 } else if (s.format === "tel") {
                     input.type = "tel";
                 } else if (s.format === "email") {
                     input.type = "email";
+				//@description Issue#8 - Add new field to support password type [https://github.com/WSUCEG-7140/Team-Alpha/pull/22]
                 } else if (s.format === "password") {
                     input.type = "password";
+				//@description Issue#37 - Add new field to support URL type [https://github.com/WSUCEG-7140/Team-Alpha/pull/39]
                 } else if (s.format === "url") {
                     input.type = "url";
+				//@description Issue#51 - Add new field to support range input type [https://github.com/WSUCEG-7140/Team-Alpha/pull/59]
                 } else if (s.format === "range") {
                     input.type = "range";
                     if (s.minimum) {
@@ -337,6 +341,7 @@ if (typeof brutusin === "undefined") {
                                 if (parentSchema.required) {
                                     return BrutusinForms.messages["required"];
                                 } else if (parentSchema.requiredProperties) {
+									//@description Issue#15 - Validation to fail if required field is empty [https://github.com/WSUCEG-7140/Team-Alpha/pull/16]
                                     for (var i = 0; i < parentSchema.requiredProperties.length; i++) {
                                         if (parentSchema.requiredProperties[i] === s.$id.substring(2)) {
                                             return BrutusinForms.messages["required"];
@@ -367,6 +372,7 @@ if (typeof brutusin === "undefined") {
                                 return BrutusinForms.messages["maxLength"].format(s.maxLength);
                             }
                         }
+						//@description Issue#10 - Add new field to support email and its validation [https://github.com/WSUCEG-7140/Team-Alpha/pull/14]
                         //Add a default regex pattern matching for email validation, or else user could use
                         //the `pattern` field for their own custom regex pattern
                         if (!s.pattern && s.format === "email") {
@@ -374,7 +380,7 @@ if (typeof brutusin === "undefined") {
                                 return BrutusinForms.messages["email"];
                             }
                         }
-
+						//@description Issue#37 - Add new field to support URL type [https://github.com/WSUCEG-7140/Team-Alpha/pull/39]
                         if (!s.pattern && s.format === "url") {
                             if (!value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)) {
                                 return BrutusinForms.messages["url"];
@@ -424,6 +430,7 @@ if (typeof brutusin === "undefined") {
                 input.title = s.description;
                 input.placeholder = s.description;
             }
+			//@description Issue#19 - Support Custom-Class Support [https://github.com/WSUCEG-7140/Team-Alpha/pull/20]
             if (s.class) {
                 input.className = s.class;
             }
@@ -438,6 +445,7 @@ if (typeof brutusin === "undefined") {
             var schemaId = getSchemaId(id);
             var s = getSchema(schemaId);
             var input;
+			//@description Issue#24 - Adding new field to support radio button [https://github.com/WSUCEG-7140/Team-Alpha/pull/25]
             if (s.format === "radio") {
                 input = document.createElement("div");
                 input.className = "form-check form-check-inline";
@@ -463,6 +471,7 @@ if (typeof brutusin === "undefined") {
                     appendChild(input, radioInput, s);
                 }
             }
+			//@description Issue#38 - Add new field to support checkboxes in a field [https://github.com/WSUCEG-7140/Team-Alpha/pull/40]
             else if (s.format === "checkbox") {
                 input = document.createElement("div");
                 input.className = "form-check form-check-inline";
@@ -478,6 +487,7 @@ if (typeof brutusin === "undefined") {
                     label.className = "form-check-label";
                     var labelText = document.createTextNode(s.enum[i]);
                     appendChild(label, labelText);
+					//@description Issue#44 - Fix data support for checkbox which is retrieving empty values [https://github.com/WSUCEG-7140/Team-Alpha/pull/46]
                     if (value) {
                         for (var j = 0; j < value.length; j++) {
                             if (s.enum[i] === value[j]) {
@@ -485,6 +495,7 @@ if (typeof brutusin === "undefined") {
                             }
                         }
                     }
+					//@description Issue#38 - Add new field to support checkboxes in a field.  [https://github.com/WSUCEG-7140/Team-Alpha/pull/40]
                     if (s.readOnly) {
                         checkbox.disabled = true;
                     }
@@ -524,7 +535,7 @@ if (typeof brutusin === "undefined") {
                     input.selectedIndex = 2;
                 }
             }
-
+			//@description Issue#35 - Adding Functionalities to work for radio buttons  [https://github.com/WSUCEG-7140/Team-Alpha/pull/36]
             input.getValidationError = function () {
                 try {
                     var value = getValue(s, input);
@@ -548,6 +559,7 @@ if (typeof brutusin === "undefined") {
             };
             input.schema = schemaId;
             input.id = getInputId();
+			//@description Issue#19 - Support Custom-Class Support  [https://github.com/WSUCEG-7140/Team-Alpha/pull/20]
             if (s.class) {
                 input.className = s.class;
             }
@@ -737,6 +749,7 @@ if (typeof brutusin === "undefined") {
                 for (var prop in s.properties) {
                     var tr = document.createElement("tr");
                     var td1 = document.createElement("td");
+					//@description Issue#66 - Beautify the form to loosen the fields with bootstrap 4 [https://github.com/WSUCEG-7140/Team-Alpha/pull/76]
                     td1.className = "form-group row";
                     var divLabel = document.createElement("div");
                     divLabel.className = "col-md-2";
@@ -954,7 +967,7 @@ if (typeof brutusin === "undefined") {
         // end of array render
 
         /**
-         * Renders the form inside the the container, with the specified data preloaded
+         * @description Renders the form inside the the container, with the specified data preloaded
          * @name obj.render
          * @instance
          * @param {HTMLElement} c container
@@ -1003,7 +1016,7 @@ if (typeof brutusin === "undefined") {
         };
 
         /**
-         * Validates all the fields inside the form
+         * @description Validates all the fields inside the form
          * @instance
          * @name obj.validate
          * @returns {boolean} Validation result
@@ -1013,7 +1026,7 @@ if (typeof brutusin === "undefined") {
         };
 
         /**
-         * Retrieves the field values from the form
+         * @description Retrieves the field values from the form
          * @instance
          * @name obj.getData
          * @returns {type} json object
@@ -1030,6 +1043,7 @@ if (typeof brutusin === "undefined") {
                     if (object.length === 0) {
                         return null;
                     }
+					//@description Issue#44 - Fix data support for checkbox which is retrieving empty values [https://github.com/WSUCEG-7140/Team-Alpha/pull/46]
                     if (s.format === "checkbox") {
                         return object;
                     }
@@ -1066,7 +1080,8 @@ if (typeof brutusin === "undefined") {
                             }
                         }
                         var value = removeEmptiesAndNulls(object[prop], ss);
-                        //Check if user assign an empty String in the default field, if true return empty string instead of null
+                        //@description Check if user assign an empty String in the default field, if true return empty string instead of null
+						//@description Issue#32 - getData() function to get working with oneOf schema[https://github.com/WSUCEG-7140/Team-Alpha/pull/33]
                         if (ss !== null) {
                             if (ss.default == "" && value === null) {
                                 value = "";
@@ -1099,7 +1114,7 @@ if (typeof brutusin === "undefined") {
         return obj;
 
         /**
-         * Check if the dependency map forms a circle
+         * @description Check if the dependency map forms a circle
          * @name validateDepencyMapIsAcyclic
          * @function
          */
@@ -1132,7 +1147,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Append the child HTMLElement to the parent HTMLElement, schema is used for the decorators 
+         * @description Append the child HTMLElement to the parent HTMLElement, schema is used for the decorators 
          * @see BrutusinForms.addDecorator
          * 
          * @name appendChild
@@ -1149,7 +1164,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Creates a copy of the original schema excluding `items`, `properties` and `additionalProperties` field
+         * @description Creates a copy of the original schema excluding `items`, `properties` and `additionalProperties` field
          * @function
          * @name createPseudoSchema
          * @param {Object} schema - The original JSON schema object
@@ -1172,7 +1187,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Use for `$ref` type. Refer to {@link ./index.html#11}. To get the field properties under the `path` provided.
+         * @description Use for `$ref` type. Refer to {@link ./index.html#11}. To get the field properties under the `path` provided.
          * @function
          * @name getDefinition
          * @param {string} path - The path to the defined field.
@@ -1191,7 +1206,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * To find if a string is exists inside an array
+         * @description To find if a string is exists inside an array
          * @function 
          * @name containsStr
          * @param {Array} array - The array to check against
@@ -1208,7 +1223,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Rename the `required` field to `requiredProperties` for certain property type in the schema to support JSON Schema v4.
+         * @description Rename the `required` field to `requiredProperties` for certain property type in the schema to support JSON Schema v4.
          * See example {@link ./index.html#8}
          * @function
          * @name renameRequiredPropeties
@@ -1256,7 +1271,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Generates a schema map based on the provided JSON schema
+         * @description Generates a schema map based on the provided JSON schema
          * @function
          * @name populateSchemaMap
          * @param {string} name - The schema ID
@@ -1372,7 +1387,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Renders the label for the input field
+         * @description Renders the label for the input field
          * @name renderTitle
          * @function
          * @param {HTMLElement} container - The container for the label element
@@ -1398,6 +1413,7 @@ if (typeof brutusin === "undefined") {
                     if (schema.type !== "any" && schema.type !== "object" && schema.type !== "array") {
                         titleLabel.htmlFor = getInputId();
                     }
+					//@description Issue#6 - Remove Colon from Title in Html forms [https://github.com/WSUCEG-7140/Team-Alpha/pull/31]
                     var titleNode = document.createTextNode(title);
                     appendChild(titleLabel, titleNode, schema);
                     if (schema.description) {
@@ -1415,7 +1431,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Concat the formId and inputCounter to form an unique ID
+         * @description Concat the formId and inputCounter to form an unique ID
          * @name getInputId
          * @function
          * @returns {string} The ID for the input field
@@ -1425,7 +1441,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Validates if the form input fields adhere to all the validations defined
+         * @description Validates if the form input fields adhere to all the validations defined
          * @name validate
          * @function
          * @param {HTMLElement} element 
@@ -1453,7 +1469,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Clears the first child element of the selected container
+         * @description Clears the first child element of the selected container
          * @function
          * @name clear
          * @param {HTMLElement} container 
@@ -1467,7 +1483,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Renders the HTML form based on the provided JSON schema
+         * @description Renders the HTML form based on the provided JSON schema
          * @function
          * @name render
          * @param {HTMLElement} titleContainer - The label container that needs to generate the label field in it
@@ -1505,6 +1521,7 @@ if (typeof brutusin === "undefined") {
             renderInfoMap[schemaId].value = value;
             clear(titleContainer);
             clear(container);
+			//@description Issue#11 - Clean data after onChange between oneOf [https://github.com/WSUCEG-7140/Team-Alpha/pull/30]
             if (s === undefined) {
                 data = new Object();
                 return;
@@ -1520,6 +1537,7 @@ if (typeof brutusin === "undefined") {
                 if (!value) {
                     if (typeof initialValue !== "undefined" && initialValue !== null) {
                         value = getInitialValue(id);
+						//@description Issue#17 - Display default values in an array when initial data is passed [https://github.com/WSUCEG-7140/Team-Alpha/pull/18]
                         if (value === null && typeof s.default !== "undefined") {
                             value = s.default;
                         }
@@ -1551,7 +1569,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Used in object additionalProperties and arrays
+         * @description Used in object additionalProperties and arrays
          * @function
          * @name createPropertyProvider
          * @param {type} getValue
@@ -1566,7 +1584,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Retrieve the initial value defined in the initial data JSON schema
+         * @description Retrieve the initial value defined in the initial data JSON schema
          * @name getInitialValue
          * @function
          * @param {string} id - The schema ID
@@ -1584,6 +1602,7 @@ if (typeof brutusin === "undefined") {
 		 * When calling the render function, it updates the renderInfoMap with the provided titleContainer, container, id, parentObject, propertyProvider, and value. Then, based on the schema, the function either renders a title using the renderTitle function or recursively calls itself to handle schema references ($ref) and dependency cases.
          *        
          */
+		//@description Issue#9 - Remove eval function  [https://github.com/WSUCEG-7140/Team-Alpha/pull/29]
         function getInitialValue(id) {
             var fields = id.substring(2).split('.');
             var initialValueClone = initialValue;
@@ -1606,7 +1625,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Retrieve the values from the input field in the form
+         * @description Retrieve the values from the input field in the form
          * @name getValue
          * @function
          * @param {Object} schema - The JSON schema
@@ -1659,6 +1678,7 @@ if (typeof brutusin === "undefined") {
                     if (!value) {
                         value = false;
                     }
+				//@description Issue#44 - Fix data support for checkbox which is retrieving empty values  [https://github.com/WSUCEG-7140/Team-Alpha/pull/46]
                 } else if (schema.format === "checkbox") {
                     var checkboxValue = [];
                     for (var i = 0; i < input.childElementCount; i++) {
@@ -1680,6 +1700,7 @@ if (typeof brutusin === "undefined") {
                     } else {
                         value = null;
                     }
+				//@description Issue#35 - Adding Functionalities to work for radio buttons [https://github.com/WSUCEG-7140/Team-Alpha/pull/36]
                 } else if (schema.format === "radio") {
                     value = null;
                     for (var i = 0; i < input.childElementCount; i++) {
@@ -1698,7 +1719,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Replace the ID from string or int to [*] or [#] if found
+         * @description Replace the ID from string or int to [*] or [#] if found
          * @name getSchemaId
          * @function
          * @param {string} id - The schema id
@@ -1709,7 +1730,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * This method is to retrieve the parent schemaId based on the provided schemaId
+         * @description This method is to retrieve the parent schemaId based on the provided schemaId
          * @function
          * @name getParentSchemaId
          * @param {string} id - The schemaId to use for retrieving the parent schemaId
@@ -1720,7 +1741,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * This method is to retrieve the JSON schemas under the specified schemaId.
+         * @description This method is to retrieve the JSON schemas under the specified schemaId.
          * @function
          * @name getSchema
          * @param {string} schemaId - The schemaId to use for getting the child arrays.
@@ -1731,7 +1752,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Removes the child schema based on the schema ID provided
+         * @description Removes the child schema based on the schema ID provided
          * @name cleanSchemaMap
          * @function
          * @param {string} schemaId - The schema ID used to identify which part of the child needs to be removed
@@ -1745,7 +1766,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * This method is to clean up the DOM Element after resolving the schema (used in dynamic schema resolver)
+         * @description This method is to clean up the DOM Element after resolving the schema (used in dynamic schema resolver)
          * @function
          * @name cleanData
          * @param {string} schemaId - The identifier of the schema to use for cleaning data.
@@ -1758,7 +1779,7 @@ if (typeof brutusin === "undefined") {
         }
 
         /**
-         * Used in schema resolver. When it detects the schema depends on another schema based on the output has a change,
+         * @description Used in schema resolver. When it detects the schema depends on another schema based on the output has a change,
          * it renders the fields based on the schema defined in the resolver.
          * @function
          * @name onDependencyChanged
