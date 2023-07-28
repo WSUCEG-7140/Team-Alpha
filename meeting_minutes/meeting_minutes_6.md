@@ -28,8 +28,14 @@ I have completed working on Issue 38  which is to Add new field to support check
 Rohith kalakuntla:
 I have completed working on Issue 32 which about getData() function to get working with oneOf schema. I have completed working on Issue 41 which is on Adding new field to support phone number.I have completed working on Issue 70 which is about Update Validation Error Popup with bootstrap 4 update.
 
-## Additional Notes:
-NONE
+## Decisions Made:
+Rakesh Gunturu to re-check all schemas that are added, as it is a big change in UI to upgrade bootstrap version.
+
+Yaswanth Jonnakuti is yet to add final round of test cases for final week's changes. I can see reset button is one of latest change that needs to be considered.
+
+Saikumar Pulluri to add User-friendly schema changes as Json schemas in Input field of project.
+
+Rohith Kalakuntla to resolve some of bugs that were seen after the upgradation of bootstrap version.
 
 
 ## Minutes Approved by:  

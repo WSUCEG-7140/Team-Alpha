@@ -28,8 +28,14 @@ I have completed working on Issue 11 that is Clear data after onChange between o
 Rohith kalakuntla:
 I have completed working on Issue 6 that is making UI level changes. I have started working on Issue 32 which about getData() function to get working with oneOf schema.
 
-## Additional Notes:
-NONE
+## Decisions Made:
+Rakesh Gunturu to check functionalities of added UI changes that are new input types.
+
+Yaswanth Jonnakuti to check the feasibility of bootstrap update to existing UI.
+
+Saikumar Pulluri to try checking and adding more input field types.
+
+Rohith Kalakuntla to try automating document checker and validate the changes using existing comments.
 
 
 ## Minutes Approved by:  

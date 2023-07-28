@@ -28,8 +28,16 @@ I have completed working on Issue 38  which is to Add new field to support check
 Rohith kalakuntla:
 I have completed working on Issue 32 which about getData() function to get working with oneOf schema. I have started working on Issue 50 which is about Fix the error message that are not appearing when there is an error in the schema. I have started working on Issue 52 which is about Update Radio Button and Checkbox UI with new Bootstrap Version.
 
-## Additional Notes:
-NONE
+## Decisions Made:
+Bootstrap Upgrade is done as part of this week.
+
+Rakesh Gunturu to fix some more bugs in UI functionalities of new fields that were added.
+
+Yaswanth Jonnakuti to abstract the usage of glyphicon and be able to use bi-con in place of it.
+
+Saikumar Pulluri to check and add more fields also validate the changes using new test cases.
+
+Rohith Kalakuntla to change the looks of UI after bootstrap upgrade as spacing differs between fields in a line.
 
 
 ## Minutes Approved by:  

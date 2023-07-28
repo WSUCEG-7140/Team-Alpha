@@ -28,8 +28,12 @@ I have completed working on issue 9 which is to remove the eval function without
 Rohith kalakuntla:
 I have completed issue 7 which is to Make changes to string element to be empty rather than null. I have started working on Issue 6 that is making UI level changes.
 
-## Additional Notes:
-Finalized Selenium for Automation Testing.
+## Decisions Made:
+Finalized Pytest Selenium for Automation Testing.
+
+Rakesh Gunturu to update date and time format to latest as it seems like an old change.
+
+Yaswanth Jonnakuti to check and see if there are any UI changes in weeks 1 and 2, and try writing new test cases to validate those changes.
 
 
 ## Minutes Approved by:  

@@ -28,8 +28,16 @@ I have completed working on Issue 10 for Email field support and its validation 
 ### Rohith kalakuntla:
 I have completed working on issue 19 that is adding Custom-Class Support which collectively helps the functionality. I am working on issue 7 which is to Make changes to string element to be empty rather than null.
 
-## Additional Notes:
+## Decisions Made:
 Try checking tools like Jest, Selenium(Web Browser) or MochaJS for automation testing.
+
+Rakesh Gunturu to write test case for validation failure in fields.
+
+Yaswanth Jonnakuti to try checking test cases apart from pytest using selenium which is currently used.
+
+Saikumar Pulluri to 
+
+As per Rohith Kalakuntla's statement, covered most of pre-defined issues from forked repository. Proceed with adding new changes trying to add schemas.
 
 ## Minutes Approved by: 
 Yaswanth Jonnakuti

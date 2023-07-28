@@ -28,8 +28,14 @@ I have completed all the setup,dependencies on my local. I have started working 
 ### Rohith kalakuntla:
 I have downloaded all the dependencies to my local. I have started working on issue 19 that is adding Custom-Class Support which collectively helps the functionality. I have started working on issue 7 which is to Make changes to string element to be empty rather than null.
 
-## Additional Notes:
-NONE
+## Decisions Made:
+Rakesh Gunturu is assigned a task of adding default values when initial data is passed.
+
+Yaswanth Jonnakuti to write more test cases to test functionality changes and UI Changes of Json schemas to HTML Forms.
+
+Saikumar Pulluri to try adding new input types to available json schemas, as already started working on email support, try analyzing date and time input types.
+
+Rohith Kalakuntla to continue working on pending pre-defined issues from brutusin forms issues.
 
 ## Minutes Approved by: 
 Rakesh Gunturu
