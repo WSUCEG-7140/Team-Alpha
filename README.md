@@ -57,44 +57,83 @@ Member|Description
 ## Issues
 
 [Issue#6](https://github.com/WSUCEG-7140/Team-Alpha/issues/6) - Remove Colon from Title in Json Schema's
+
 [Issue#7](https://github.com/WSUCEG-7140/Team-Alpha/issues/7) - Make changes to string element to be empty rather than null.
+
 [Issue#5](https://github.com/WSUCEG-7140/Team-Alpha/issues/5) - Write Documentation for changes to be done in the sprints.
+
 [Issue#4](https://github.com/WSUCEG-7140/Team-Alpha/issues/4) - Write test cases to test ongoing changes.
+
 [Issue#9](https://github.com/WSUCEG-7140/Team-Alpha/issues/9) - Remove eval function.
+
 [Issue#10](https://github.com/WSUCEG-7140/Team-Alpha/issues/10) - Add new field to support email and its validation
+
 [Issue#11](https://github.com/WSUCEG-7140/Team-Alpha/issues/11) - Clean data after onChange between oneOf
+
 [Issue#12](https://github.com/WSUCEG-7140/Team-Alpha/issues/12) - Add collapsible form support
+
 [Issue#13](https://github.com/WSUCEG-7140/Team-Alpha/issues/13) - Add new field to support Date and time
+
 [Issue#15](https://github.com/WSUCEG-7140/Team-Alpha/issues/15) - Validation to fail if required field is empty
+
 [Issue#17](https://github.com/WSUCEG-7140/Team-Alpha/issues/17) - Display default values in an array when initial data is passed
+
 [Issue#19](https://github.com/WSUCEG-7140/Team-Alpha/issues/19) - Support Custom-Class Support
+
 [Issue#24](https://github.com/WSUCEG-7140/Team-Alpha/issues/24) - Add new field to support radio buttons
+
 [Issue#32](https://github.com/WSUCEG-7140/Team-Alpha/issues/32) - getData() function to get working with oneOf schema
+
 [Issue#35](https://github.com/WSUCEG-7140/Team-Alpha/issues/35) - Add functionalities to work with radio buttons
+
 [Issue#37](https://github.com/WSUCEG-7140/Team-Alpha/issues/37) - Add new field to support URL type
+
 [Issue#38](https://github.com/WSUCEG-7140/Team-Alpha/issues/38) - Add new field to support checkboxes in a field
+
 [Issue#41](https://github.com/WSUCEG-7140/Team-Alpha/issues/41) - Add new field to support phone number
+
 [Issue#42](https://github.com/WSUCEG-7140/Team-Alpha/issues/42) - Add more test cases to additional functional UI changes
+
 [Issue#43](https://github.com/WSUCEG-7140/Team-Alpha/issues/43) - Add a reset button in final page to update all fields to Null
+
 [Issue#44](https://github.com/WSUCEG-7140/Team-Alpha/issues/44) - Fix data support for checkbox which is retrieving empty values
+
 [Issue#45](https://github.com/WSUCEG-7140/Team-Alpha/issues/45) - Update bootstrap version to 4.6 and give website modern look
+
 [Issue#48](https://github.com/WSUCEG-7140/Team-Alpha/issues/48) - Add new schema for URL Changes
+
 [Issue#50](https://github.com/WSUCEG-7140/Team-Alpha/issues/50) - Fix the error message that are not appearing when there is an error in the schema
+
 [Issue#51](https://github.com/WSUCEG-7140/Team-Alpha/issues/51) - Add new field to support range input type
+
 [Issue#52](https://github.com/WSUCEG-7140/Team-Alpha/issues/52) - Update Radio Button and Checkbox UI with new Bootstrap Version
+
 [Issue#53](https://github.com/WSUCEG-7140/Team-Alpha/issues/53) - Add new schema to create registration form
+
 [Issue#54](https://github.com/WSUCEG-7140/Team-Alpha/issues/54) - Add Collapsible form changes as a new schema
+
 [Issue#55](https://github.com/WSUCEG-7140/Team-Alpha/issues/55) - Abstract usage of glyphicon as bootstrap 4 doesn't support it
+
 [Issue#64](https://github.com/WSUCEG-7140/Team-Alpha/issues/64) - Add Red border to text field when there is validation error
+
 [Issue#65](https://github.com/WSUCEG-7140/Team-Alpha/issues/65) - Add new schema for Contact Form
+
 [Issue#66](https://github.com/WSUCEG-7140/Team-Alpha/issues/66) - Beautify the form to loosen the fields with bootstrap 4
+
 [Issue#67](https://github.com/WSUCEG-7140/Team-Alpha/issues/67) - Add new schema for Delivery Form
+
 [Issue#68](https://github.com/WSUCEG-7140/Team-Alpha/issues/68) - Add new field to support file format type
+
 [Issue#69](https://github.com/WSUCEG-7140/Team-Alpha/issues/69) - Add new schema for Product Listing Form
+
 [Issue#70](https://github.com/WSUCEG-7140/Team-Alpha/issues/70) - Update Validation Error Popup with bootstrap 4 update
+
 [Issue#71](https://github.com/WSUCEG-7140/Team-Alpha/issues/71) - Commit the changes of meeting minutes
+
 [Issue#72](https://github.com/WSUCEG-7140/Team-Alpha/issues/72) - Add Design Documentation for the project
+
 [Issue#87](https://github.com/WSUCEG-7140/Team-Alpha/issues/87) - Add Changes for Contract Programming
+
 
 ## Documentation
 
